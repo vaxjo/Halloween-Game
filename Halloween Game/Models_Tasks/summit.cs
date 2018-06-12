@@ -27,7 +27,7 @@ namespace Halloween_Game {
 				PlayerTask.CreateTask("summit", highestRankedAgent.id, _primes[HGameApp.Rnd.Next(_primes.Length)] + ",0");
 			}
 
-			Newsfeed.Create("The once-every-century Earth Plutocratic Congress Interagency Technology Summit had commenced. Best of luck to the company representatives.", Newsfeed.Context.success);
+			Newsfeed.Create("The once-every-century Earth Plutocratic Congress Interagency Technology Summit has commenced. Best of luck to the company representatives.", Newsfeed.Context.success);
 		}
 
 		private static List<PlayerTask> GetSummitTasks() {
@@ -82,7 +82,7 @@ namespace Halloween_Game {
 						pt.GetPlayer.GetTeam.score += 15;
 						pt.GetPlayer.GetTeam.Save();
 					}
-					Newsfeed.Create("The Earth Plutocratic Congress Interagency Technology Summit is once again a overwhelming success.", Newsfeed.Context.success);
+					Newsfeed.Create("The Earth Plutocratic Congress Interagency Technology Summit is once again an overwhelming success.", Newsfeed.Context.success);
 
 				} else {
 					foreach (var pt in GetSummitTasks()) {

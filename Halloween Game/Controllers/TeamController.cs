@@ -8,7 +8,7 @@ namespace Halloween_Game.Controllers {
 	public class TeamController : Controller {
 
 		public ActionResult Index(string team) {
-			if (!Request.IsLocal) team = GetTeamFromHostname();
+			if (!Request.IsLocal && string.IsNullOrWhiteSpace(team)) team = GetTeamFromHostname();
 
 			if (string.IsNullOrWhiteSpace(team)) return View("Summary");
 

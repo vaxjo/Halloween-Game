@@ -42,7 +42,7 @@
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="4500">
         <div class="carousel-inner" role="listbox">
             @{ bool active = false; }
-            @foreach (string line in System.IO.File.ReadAllLines(Server.MapPath("/App_Data/" + Model.id + " history.txt"))) {
+            @foreach (string line in System.IO.File.ReadAllLines(Server.MapPath("~/App_Data/" + Model.id + " history.txt"))) {
                 <div class="item @(!active ? "active" : "")">
                     <div class="row history">
                         <div class="col-xs-2 @(Model.id == "ddd" ? "font-central" : "font-" + Model.id) year">@line.Split(',')[0]</div>
