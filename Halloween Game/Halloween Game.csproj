@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F836292A-4DFF-47C2-8450-740D1F97C04D}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Halloween_Game</RootNamespace>
+    <AssemblyName>Halloween Game</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <includesetaclproviderondestination>False</includesetaclproviderondestination>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MiniProfiler, Version=3.2.0.157, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\MiniProfiler.3.2.0.157\lib\net40\MiniProfiler.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Myriads, Version=2.1.6359.16877, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Myriads.2.1.6359.16877\lib\net40\Myriads.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CentralController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Controllers\TaskController.cs" />
+    <Compile Include="Controllers\PlayerController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="hgame.cs">
+      <DependentUpon>hgame.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="hgame.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>hgame.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Newsfeed.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\PlayerItem.cs" />
+    <Compile Include="Models\PlayerTask.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\Settings.cs" />
+    <Compile Include="Models\Session.cs" />
+    <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\JSON.cs" />
+    <Compile Include="Models_Tasks\mentoring.cs" />
+    <Compile Include="Models_Tasks\warehouse.cs" />
+    <Compile Include="Models_Tasks\buttonunit.cs" />
+    <Compile Include="Models_Tasks\wiring.cs" />
+    <Compile Include="Models_Tasks\slots.cs" />
+    <Compile Include="Models_Tasks\delegatedown.cs" />
+    <Compile Include="Models_Tasks\summit.cs" />
+    <Compile Include="Models_Tasks\recommendation.cs" />
+    <Compile Include="Models_Tasks\coffee.cs" />
+    <Compile Include="Models_Tasks\prisonersdilemma.cs" />
+    <Compile Include="Models_Tasks\mysterypackage.cs" />
+    <Compile Include="Models_Tasks\recursion.cs" />
+    <Compile Include="Models_Tasks\promotion.cs" />
+    <Compile Include="Models_Tasks\27b6.cs" />
+    <Compile Include="Models_Tasks\marketplace.cs" />
+    <Compile Include="Models_Tasks\acquisition.cs" />
+    <Compile Include="Models_Tasks\final.cs" />
+    <Compile Include="Models_Tasks\trading.cs" />
+    <Compile Include="Models_Tasks\hatch.cs" />
+    <Compile Include="Models_Tasks\trivia.cs" />
+    <Compile Include="Models_Tasks\quick.cs" />
+    <Compile Include="Models_Tasks\tradingresearch.cs" />
+    <Compile Include="Models_Tasks\welcome.cs" />
+    <Compile Include="Models_Tasks\wakeup.cs" />
+    <Compile Include="Models_Tasks\switchteam.cs" />
+    <Compile Include="Models_Tasks\~TaskDetail.cs" />
+    <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\Task.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\ddd history.txt" />
+    <Content Include="App_Data\eee history.txt" />
+    <Content Include="App_Data\ccc history.txt" />
+    <Content Include="App_Data\newsitems.txt" />
+    <Content Include="App_Data\trivia.txt" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Items\27b6.png" />
+    <Content Include="Content\Items\acid.png" />
+    <Content Include="Content\Items\albumen.png" />
+    <Content Include="Content\Items\chronotons.png" />
+    <Content Include="Content\Items\coffee.png" />
+    <Content Include="Content\Items\compensator.png" />
+    <Content Include="Content\Items\converter.png" />
+    <Content Include="Content\Items\egg.png" />
+    <Content Include="Content\Items\electronics.png" />
+    <Content Include="Content\Items\empty.png" />
+    <Content Include="Content\Items\essence.png" />
+    <Content Include="Content\Items\fluxcapacitor.png" />
+    <Content Include="Content\Items\manifold.png" />
+    <Content Include="Content\Items\photonic.png" />
+    <Content Include="Content\Items\sentience.png" />
+    <Content Include="Content\Items\separator.png" />
+    <Content Include="Content\Items\stabilizer.png" />
+    <Content Include="Content\Items\timemachine.png" />
+    <Content Include="Content\logo bw ccc.png" />
+    <Content Include="Content\logo bw ddd.png" />
+    <Content Include="Content\logo bw eee.png" />
+    <Content Include="Content\Tasks\buttonunit\button.png" />
+    <Content Include="Content\Tasks\hatch\hatch1.png" />
+    <Content Include="Content\Tasks\hatch\hatch2.png" />
+    <Content Include="Content\Tasks\hatch\hatch3.png" />
+    <Content Include="Content\Tasks\hatch\hatch4.png" />
+    <Content Include="Content\Tasks\hatch\hatch5.png" />
+    <Content Include="Content\Tasks\hatch\hatch6.png" />
+    <Content Include="Content\Tasks\hatch\hatch7.png" />
+    <Content Include="Content\Tasks\mysterypackage\mysterybox.png" />
+    <Content Include="Content\Tasks\slots\1.png" />
+    <Content Include="Content\Tasks\slots\2.png" />
+    <Content Include="Content\Tasks\slots\3.png" />
+    <Content Include="Content\Tasks\slots\4.png" />
+    <Content Include="Content\Tasks\slots\5.png" />
+    <Content Include="Content\Tasks\slots\6.png" />
+    <Content Include="Content\Tasks\slots\7.png" />
+    <Content Include="Content\Tasks\slots\8.png" />
+    <Content Include="Content\Tasks\slots\0.png" />
+    <Content Include="Content\Tasks\wiring\a.jpg" />
+    <Content Include="Content\Tasks\wiring\b.jpg" />
+    <Content Include="Content\Tasks\wiring\c.jpg" />
+    <Content Include="Content\Tasks\wiring\d.jpg" />
+    <Content Include="Content\Tasks\wiring\e.jpg" />
+    <Content Include="Content\timewarp.gif" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="hgame.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>hgame.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Content\fonts\aliens and cows_trial.ttf" />
+    <Content Include="Content\fonts\JLSDataGothicR_NC.otf" />
+    <Content Include="Content\fonts\Neoterique.ttf" />
+    <Content Include="Content\fonts\TrajanPro-Regular.otf" />
+    <Content Include="App_Data\config\Web.connectionStrings.secret.config" />
+    <Content Include="App_Data\config\Web.appSettings.secret.config" />
+    <None Include="Properties\PublishProfiles\WinHost.pubxml" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.cookie-1.4.1.min.js" />
+    <Content Include="Scripts\jquery.cookie-1.4.1.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\qrcodejs\qrcode.js" />
+    <Content Include="Scripts\qrcodejs\qrcode.min.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Player\Index.cshtml" />
+    <Content Include="Views\Player\Modal_Profile.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Modal_Team.cshtml" />
+    <Content Include="Views\Admin\Modal_Task.cshtml" />
+    <Content Include="Views\Admin\Modal_Player.cshtml" />
+    <Content Include="Views\Player\Modal_Task.cshtml" />
+    <Content Include="Views\Central\Index.cshtml" />
+    <Content Include="Views\Admin\Modal_Notification_Add.cshtml" />
+    <Content Include="Views\Admin\Modal_Notification_View.cshtml" />
+    <Content Include="Views\Admin\Modal_Player_GetTasks.cshtml" />
+    <Content Include="Views\Admin\Index_Players.cshtml" />
+    <Content Include="Views\Admin\Index_Notifications.cshtml" />
+    <Content Include="Views\Admin\Index_Session.cshtml" />
+    <Content Include="Views\Admin\Index_Teams.cshtml" />
+    <Content Include="Views\Admin\Index_Tasks.cshtml" />
+    <Content Include="Views\Admin\Index_Settings.cshtml" />
+    <Content Include="Views\Admin\Index_Items.cshtml" />
+    <Content Include="Views\Admin\Modal_Item.cshtml" />
+    <Content Include="Views\Admin\Modal_Player_GetItems.cshtml" />
+    <Content Include="Views\Player\Modal_Item.cshtml" />
+    <Content Include="Views\Team\Index_Running.cshtml" />
+    <Content Include="Views\Team\Summary.cshtml" />
+    <Content Include="Views\Team\Join.cshtml" />
+    <Content Include="Views\Central\NewsFeed.cshtml" />
+    <Content Include="Views\Central\Teams.cshtml" />
+    <Content Include="Views\Admin\Index_Newsfeed.cshtml" />
+    <Content Include="Views\Admin\Modal_Newsfeed_Add.cshtml" />
+    <Content Include="Views\Admin\Modal_Newsfeed_View.cshtml" />
+    <Content Include="Views\Team\Index_TimeWarp.cshtml" />
+    <Content Include="Views\Admin\Login.cshtml" />
+    <Content Include="Views\Task\27b6.cshtml" />
+    <Content Include="Views\Task\acquisition.cshtml" />
+    <Content Include="Views\Task\tradingresearch.cshtml" />
+    <Content Include="Views\Task\coffee.cshtml" />
+    <Content Include="Views\Task\final.cshtml" />
+    <Content Include="Views\Task\hatch.cshtml" />
+    <Content Include="Views\Task\marketplace.cshtml" />
+    <Content Include="Views\Task\mysterypackage.cshtml" />
+    <Content Include="Views\Task\promotion.cshtml" />
+    <Content Include="Views\Task\quick.cshtml" />
+    <Content Include="Views\Task\switchteam.cshtml" />
+    <Content Include="Views\Task\trading.cshtml" />
+    <Content Include="Views\Task\trivia.cshtml" />
+    <Content Include="Views\Task\wakeup.cshtml" />
+    <Content Include="Views\Task\welcome.cshtml" />
+    <Content Include="Views\Task\prisonersdilemma.cshtml" />
+    <Content Include="Views\Task\recursion.cshtml" />
+    <Content Include="Views\Task\recommendation.cshtml" />
+    <Content Include="Views\Task\summit.cshtml" />
+    <Content Include="Views\Task\delegatedown.cshtml" />
+    <Content Include="Views\Task\slots.cshtml" />
+    <Content Include="Views\Task\wiring.cshtml" />
+    <Content Include="Views\Player\Index_None.cshtml" />
+    <Content Include="Views\Task\buttonunit.cshtml" />
+    <Content Include="Views\Team\Index_Reset.cshtml" />
+    <Content Include="Views\Player\Index_Reset.cshtml" />
+    <Content Include="Views\Player\Modal_EmptyItem.cshtml" />
+    <Content Include="Views\Task\warehouse.cshtml" />
+    <Content Include="Views\Task\mentoring.cshtml" />
+    <Content Include="Views\Admin\Modal_Team_GetWarehouse.cshtml" />
+    <None Include="Web.WinHost.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Item\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="hgame.dbml.layout">
+      <DependentUpon>hgame.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'WinHost|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <includesetaclproviderondestination>False</includesetaclproviderondestination>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>54741</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:54741/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

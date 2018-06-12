@@ -1,0 +1,16 @@
+﻿@model PlayerTask
+@{ Layout = null; }
+
+<script>
+    $(document).ready(function () {
+        $(".modal #accept").click(function () {
+            $(this).hide();
+            $.post("/Task/Update?playerTaskId=@Model.id", function () { });
+            ShowCorrect(function () { HideModal(); });
+        });
+    });
+</script>
+
+<p>Congratulations! In honor of your @DateTime.Now.Subtract(Model.GetPlayer.created).TotalMinutes.ToString("F2") minutes of dedication to the @Model.GetPlayer.GetTeam.name you have been granted this promotion.</p>
+
+<p><button id="accept" type="button" class="btn btn-success">Accept Promotion</button></p>

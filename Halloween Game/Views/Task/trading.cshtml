@@ -1,0 +1,31 @@
+﻿@model PlayerTask
+@{ Layout = null;
+   PlayerItem itemToRetrieve = PlayerItem.Load(Convert.ToInt32(Model.data)); }
+
+<script>
+    $(document).ready(function () {
+        $(".modal #enter").click(function () {
+            $(".modal form").hide();
+
+            if ($(".modal #data").val() != "@itemToRetrieve.TransferCode") { 
+                ShowIncorrect(function () { $(".modal form").show(); });
+
+            } else {
+                $.post("/Task/Update?playerTaskId=@Model.id", { data: $(".modal #data").val() });
+                ShowCorrect(function () { HideModal(); });
+            }
+        });
+    });
+</script>
+
+<p>You've been instructed to retrieve a <b>@itemToRetrieve.GetItem.name</b> from another agent of the @Model.GetPlayer.GetTeam.name: <b>@itemToRetrieve.GetPlayer.Name</b>.</p>
+<p>Find that agent, have them give you that item's transfer code, and enter it in the box below.</p>
+
+<form class="">
+    <div class="form-group">
+        <input type="number" id="data" class="form-control input-lg" />
+    </div>
+    <div class="form-group">
+        <button id="enter" type="button" class="btn btn-primary btn-lg">Enter</button>
+    </div>
+</form>

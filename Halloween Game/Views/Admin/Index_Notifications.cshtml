@@ -1,0 +1,22 @@
+﻿@{Layout = null;}
+
+<script>
+    $(document).ready(function () {
+        $("ol button").click(function () { OpenModal("/admin/Modal_Notification_View?id=" + $(this).data("id")); });
+
+        $("#newNotification").click(function () { OpenModal("/admin/Modal_Notification_Add"); });
+    });
+
+</script>
+
+<ol class="list-unstyled">
+    @foreach (var item in Notification.GetAll().OrderByDescending(o => o.created)) {
+        <li><button type="button" class="btn btn-link" data-id="@item.id">@item.created.ToShortTimeString() - @(item.message.PadRight(30, ' ').Substring(0, 30).Trim())</button></li>
+    }
+</ol>
+
+@if (Notification.GetAll().Count == 0) {
+    <p class="text-muted">No notifications.</p>
+}
+
+<button type="button" class="btn btn-link" id="newNotification"><span class="glyphicon glyphicon-plus"></span> New Notification</button>

@@ -1,0 +1,94 @@
+﻿@model PlayerItem
+@{ Layout = null; }
+
+<script>
+    $(".modal #combine").click(function () {
+        $(".modal #combiner").load("/Item/Combine?item1Id=@Model.id&item2Id=" + $(".modal #combineItemId").val(), function (data) { });
+    });
+
+    $(".modal #displayTransferCode").click(function () {
+        $(this).hide();
+        $("#transferCode").show();
+    });
+</script>
+
+@if (Model.itemId == "timemachine") {
+    <script>
+        $(".modal #doNotPress").click(function () {
+            $.get("/Item/DoNotPress?id=@Model.id", function () { HideModal(); });
+        });
+    </script>
+}
+
+@if (HGameAuth.IsAuthorized && HGameApp.Settings.DevMode) {
+    <script>
+        $(".modal #dropItem").click(function () {
+            $.get("/Item/Drop?id=@Model.id", function (data) { HideModal(); });
+        });
+    </script>
+}
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">@Model.GetItem.name</h4>
+        </div>
+        <div class="modal-body">
+
+            <div class="row">
+                <div class="@(Model.GetItem.size == 1 ? "col-xs-offset-3 col-xs-6" : (Model.GetItem.size == 2 ? "col-xs-offset-2 col-xs-8" : (Model.GetItem.size == 3 ? "col-xs-offset-1 col-xs-10" : "col-xs-12")))">
+                    <p><img src="~/Content/Items/@(Model.GetItem.id).png" class="img-responsive img-thumbnail center-block" /></p>
+                </div>
+            </div>
+
+            <p>@Model.GetItem.description</p>
+
+            @if (Model.itemId == "timemachine") {
+                <div class=" text-center">
+                    <button type="button" class="btn btn-danger btn-lg" style="margin: 10px 0;" id="doNotPress">DO NOT PRESS</button>
+                </div>
+          
+            } else {
+                if (Model.GetPlayer.GetItems.Where(o => o.id != Model.id).Count() > 0) {
+                    <hr />
+                    <div id="combiner">
+                        <p>Try combining this item with another from your inventory.</p>
+
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-xs-7">
+                                    <select class="form-control" id="combineItemId">
+                                        @foreach (var item in Model.GetPlayer.GetItems.Where(o => o.id != Model.id)) {
+                                            <option value="@item.id">@item.GetItem.name</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-xs-5">
+                                    <button type="button" class="btn btn-primary" id="combine">Combine</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                }
+
+                <hr />
+                <div class="row">
+                    <div class="col-xs-offset-2 col-xs-8 text-center">
+                        <button type="button" class="btn btn-sm btn-default" id="displayTransferCode">Display Transfer Code</button>
+                        <div id="transferCode" style="display:none;">
+                            <div class="well h1 "><samp>@Model.TransferCode</samp></div>
+                            <small class="text-muted">Use this code to transfer this item to anyone who requests it.</small>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @if (HGameAuth.IsAuthorized && HGameApp.Settings.DevMode) {
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="dropItem"><span class="glyphicon glyphicon-wrench"></span> Drop Item</button>
+            </div>
+        }
+    </div>
+</div>

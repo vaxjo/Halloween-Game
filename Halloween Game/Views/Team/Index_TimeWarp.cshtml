@@ -1,0 +1,21 @@
+﻿@model Team
+@{ ViewBag.Title = Model.name; }
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            var $warp = $("#warp").clone();
+            $("body").empty().append($warp);
+
+            var taskUpdater = setInterval(GetStatus, 3000);
+        });
+
+        function GetStatus() {
+            $.get("/Central/GetStatus", function (status) {
+                if (status.state != "@Halloween_Game.Session.CurrentSession.State.ToString()" || status.code != "@Halloween_Game.Session.CurrentSession.Code") window.location = window.location;
+            });
+        }
+    </script>
+}
+
+<img src="~/Content/timewarp.gif" id="warp" style="width: 100%; height:100%;" />

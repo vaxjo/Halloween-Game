@@ -1,0 +1,24 @@
+﻿@model PlayerTask
+@{ Layout = null; }
+
+<script>
+    $(document).ready(function () {
+        $(".modal #box").click(function () {
+            $(this).hide();
+            $(".modal #item").show();
+
+            setTimeout(function () {
+                $.post("/Task/Update?playerTaskId=@Model.id", function () { HideModal(); });
+            }, 2000);
+        });
+    });
+</script>
+
+<p>You find a strange box has been left for you. It couldn't certainly be dangerous, could it?</p>
+
+<div class="row">
+    <div class="col-xs-offset-2 col-xs-8 text-center">
+        <img src="~/Content/Tasks/mysterypackage/mysterybox.png" class="img-responsive img-thumbnail " id="box" />
+        <img src="~/Content/Items/@(Model.data).png" class="img-responsive img-thumbnail " id="item" style="display:none;" />
+    </div>
+</div>

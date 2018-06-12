@@ -1,0 +1,23 @@
+﻿@model PlayerTask
+@{ Layout = null; }
+
+<script>
+    $(document).ready(function () {
+        $(".modal img").click(function () {
+            $(this).hide();
+            if ($(this).next().length == 0) {
+                $.post("/Task/Update?playerTaskId=@Model.id");
+                ShowCorrect(function () { HideModal(); });
+            }
+            $(this).next().show();
+        });
+    });
+</script>
+
+<p>It's time to hatch that alien egg and extract its gooey crystalline albumen.</p>
+
+<div class="text-center">
+    @for (int i = 1; i <= 7; i++) {
+        <img src="~/Content/Tasks/hatch/hatch@(i).png" data-id="@(i)" class="img-responsive center-block" style="@(i > 1 ? "display:none;" : "")" />
+    }
+</div>

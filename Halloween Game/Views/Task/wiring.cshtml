@@ -1,0 +1,97 @@
+﻿@model PlayerTask
+@{ Layout = null;
+   string filename = Model.data.Split(',')[0];
+ int xres = Convert.ToInt32(Model.data.Split(',')[1]);
+ int yres = Convert.ToInt32(Model.data.Split(',')[2]); }
+
+<script>
+    var playerTaskId = @(Model.id);
+    var xres = @(xres), yres=@(yres);
+    var _highPt = null;
+
+    function GetRndX() { return Math.floor(Math.random() * xres); }
+    function GetRndY() { return Math.floor(Math.random() * yres); }
+
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#jumble table").addClass("active");
+            Jumble(5);
+        }, 1500);
+
+        $("#jumble td").click(function () {
+            if (_highPt == null) {
+                _highPt = new Point($(this).attr("id"));
+                $(this).addClass("high");
+
+            } else {
+                var pt = new Point($(this).attr("id"));
+                Swap(_highPt, pt);
+                $("#jumble td").removeClass("high");
+                _highPt = null;
+
+                // check for victory
+                var anyWrong = false;
+                $("#jumble td").each(function () {
+                    var p1 = new Point( $(this).attr("id"));
+                    var p2 = new Point($(this).find("img").data("pos"));
+                    if (p1.x != p2.x || p1.y != p2.y) anyWrong = true;
+                });
+                if (!anyWrong) {
+                    $("#jumble table").removeClass("active");
+                    $("#jumble table").css("border-collapse","separate");
+                    $.post("/Task/Update?playerTaskId=" + playerTaskId);
+                    ShowCorrect(function () { HideModal(); });
+                }
+            }
+        });
+    });
+
+    function Jumble(n) {
+        Swap(new Point(GetRndX(), GetRndY()), new Point(GetRndX(), GetRndY()));
+        if (n > 1) setTimeout(function () { Jumble(n - 1); }, 100);
+    }
+
+    function Swap(a, b) {
+        var $tdA = $("#jumble td#" + a.x + "x" + a.y);
+        var $tdB = $("#jumble td#" + b.x + "x" + b.y);
+        var $imgA = $tdA.find("img").clone();
+        var $imgB = $tdB.find("img").clone();
+        $tdA.empty().append($imgB);
+        $tdB.empty().append($imgA);
+    }
+
+    // new Point(1, 2) or new Point("1x2")
+    function Point(x, y) {
+        if (y == undefined) {
+            this.x = parseInt(x.toString().split("x")[0]); this.y = parseInt(x.toString().split("x")[1]);
+        } else {
+            this.x = x; this.y = y;
+        }
+    }
+</script>
+
+<style>
+    #jumble table { width: 100%; max-width: 600px; margin-bottom: 10px; }
+        #jumble table td { border: 0; }
+            #jumble table td img { border: 0; }
+        #jumble table.active td { border: 1px solid #fff; }
+            #jumble table.active td.high { opacity: .5; }
+</style>
+
+<p>Someone has made a right mess of these very important cables and wires. It's up to you to sort it.</p>
+
+<div id="jumble">
+    <table>
+        <tbody>
+            @for (int y = 0; y < yres; y++) {
+                <tr>
+                    @for (int x = 0; x < xres; x++) {
+                        <td id="@(x)x@(y)"><img src="/Content/Tasks/wiring/@(filename)_@(xres)x@(yres)/@(x)x@(y).jpg" data-pos="@(x)x@(y)" class="img-responsive" /></td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <p class="text-muted">Click on a tile, then click on another one to swap them. Easy. </p>
+</div>

@@ -1,0 +1,8 @@
+﻿@{ Layout = null; }
+
+@foreach (Newsfeed item in Newsfeed.GetAll().OrderByDescending(o => o.created).Take(6)) {
+    <div class="alert alert-@item.context">
+        <b><i>@item.created.TimeOfDay.TotalSeconds</i></b><br />
+        @Html.Raw(item.body)
+    </div>
+}

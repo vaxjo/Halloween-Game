@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.75" name="hgame">
+  <DataContextMoniker Name="/hgameDataContext" />
+  <nestedChildShapes>
+    <classShape Id="f4449268-05fb-4836-a11c-a9f1d8b11a34" absoluteBounds="5.125, 1.75, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/hgameDataContext/Player" />
+      <nestedChildShapes>
+        <elementListCompartment Id="461687c9-7be6-43a3-8f40-6816f1ff5bb7" absoluteBounds="5.1400000000000006, 2.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9cd9b183-0a17-44b2-80a1-bb93b5dac349" absoluteBounds="5.75, 4.375, 2, 1.3862939453125">
+      <DataClassMoniker Name="/hgameDataContext/PlayerItem" />
+      <nestedChildShapes>
+        <elementListCompartment Id="773a3bc6-423b-4668-a64e-bfb06bb8f675" absoluteBounds="5.765, 4.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.4375 : 3.90549967447917); (6.4375 : 4.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/hgameDataContext/Player/Player_PlayerItem" />
+      <nodes>
+        <classShapeMoniker Id="f4449268-05fb-4836-a11c-a9f1d8b11a34" />
+        <classShapeMoniker Id="9cd9b183-0a17-44b2-80a1-bb93b5dac349" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="41e16431-052b-4613-bbc6-a72ddf63611f" absoluteBounds="0.75, 4, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/hgameDataContext/Newsfeed" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f1d271e9-fbed-4397-a23f-05a3865269d0" absoluteBounds="0.765, 4.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="68892644-a1cc-4efb-bb33-601e798d0896" absoluteBounds="7.625, 1.125, 2, 1.9631982421875">
+      <DataClassMoniker Name="/hgameDataContext/PlayerTask" />
+      <nestedChildShapes>
+        <elementListCompartment Id="48b7f690-5b79-4ea2-a668-e80ec312718a" absoluteBounds="7.64, 1.585, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.125 : 2.41909912109375); (7.625 : 2.41909912109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/hgameDataContext/Player/Player_PlayerTask" />
+      <nodes>
+        <classShapeMoniker Id="f4449268-05fb-4836-a11c-a9f1d8b11a34" />
+        <classShapeMoniker Id="68892644-a1cc-4efb-bb33-601e798d0896" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="d18d3b3c-f9bb-42ba-8827-47c06393094e" absoluteBounds="6.5, 6.75, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/hgameDataContext/Item" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f5ce84b2-f6b2-45da-be6d-51357ccac2fc" absoluteBounds="6.515, 7.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.125 : 6.75); (7.125 : 5.7612939453125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/hgameDataContext/Item/Item_PlayerItem" />
+      <nodes>
+        <classShapeMoniker Id="d18d3b3c-f9bb-42ba-8827-47c06393094e" />
+        <classShapeMoniker Id="9cd9b183-0a17-44b2-80a1-bb93b5dac349" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="87bcbde3-020f-4999-b9a8-d977f782a918" absoluteBounds="3.25, 4.25, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/hgameDataContext/Session" />
+      <nestedChildShapes>
+        <elementListCompartment Id="53c073ec-5b57-46a3-86bd-b1b46643febf" absoluteBounds="3.265, 4.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.5625 : 4.25); (4.5625 : 2.82774983723958); (5.125 : 2.82774983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/hgameDataContext/Session/Session_Player" />
+      <nodes>
+        <classShapeMoniker Id="87bcbde3-020f-4999-b9a8-d977f782a918" />
+        <classShapeMoniker Id="f4449268-05fb-4836-a11c-a9f1d8b11a34" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3.25 : 5.01044840494792); (2.75 : 5.01044840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/hgameDataContext/Session/Session_Newsfeed" />
+      <nodes>
+        <classShapeMoniker Id="87bcbde3-020f-4999-b9a8-d977f782a918" />
+        <classShapeMoniker Id="41e16431-052b-4613-bbc6-a72ddf63611f" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="f3b30e43-8a4e-4bf3-b6d1-80f9ec91b96c" absoluteBounds="8.75, 4, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/hgameDataContext/Task" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3d543469-decc-4fec-b0c6-b1325f7d81f6" absoluteBounds="8.765, 4.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(9.1875 : 4); (9.1875 : 3.0881982421875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/hgameDataContext/Task/Task_PlayerTask" />
+      <nodes>
+        <classShapeMoniker Id="f3b30e43-8a4e-4bf3-b6d1-80f9ec91b96c" />
+        <classShapeMoniker Id="68892644-a1cc-4efb-bb33-601e798d0896" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="a1f3ad4e-8a88-4133-ba43-5a10991cfe67" absoluteBounds="2.75, 6.5, 2, 1.9631982421875">
+      <DataClassMoniker Name="/hgameDataContext/Notification" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5d5b9934-84e4-45ea-96c1-6965065f662d" absoluteBounds="2.765, 6.96, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4 : 5.82859537760417); (4 : 6.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/hgameDataContext/Session/Session_Notification" />
+      <nodes>
+        <classShapeMoniker Id="87bcbde3-020f-4999-b9a8-d977f782a918" />
+        <classShapeMoniker Id="a1f3ad4e-8a88-4133-ba43-5a10991cfe67" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="bf31bf81-af0d-4ecb-9c74-972c66b8688a" absoluteBounds="1.625, 1.75, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/hgameDataContext/Team" />
+      <nestedChildShapes>
+        <elementListCompartment Id="66ffebf6-6ec7-455a-b5db-3f89610aa7ba" absoluteBounds="1.6400000000000001, 2.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.625 : 2.22637491861979); (5.125 : 2.22637491861979)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/hgameDataContext/Team/Team_Player" />
+      <nodes>
+        <classShapeMoniker Id="bf31bf81-af0d-4ecb-9c74-972c66b8688a" />
+        <classShapeMoniker Id="f4449268-05fb-4836-a11c-a9f1d8b11a34" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

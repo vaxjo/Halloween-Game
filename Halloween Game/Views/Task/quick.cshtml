@@ -1,0 +1,18 @@
+﻿@model PlayerTask
+@{ Layout = null; }
+
+<script>
+    $(document).ready(function () {
+        $(".modal #pressme").click(function () {
+            // pressing the button is enough
+            $(".modal #pressme").hide();
+            $.post("/Task/Update?playerTaskId=@Model.id", function () { });
+            ShowCorrect(function () { HideModal(); });
+        });
+    });
+</script>
+
+<p>Hurry. Press this button. No time to lose.</p>
+
+<!-- player must press this button before the task expires -->
+<p><button id="pressme" type="button" class="btn btn-primary">Button</button></p>

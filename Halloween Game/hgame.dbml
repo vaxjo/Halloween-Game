@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Gallimaufry" Class="hgameDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=ADRIAN;Initial Catalog=Gallimaufry;Persist Security Info=True;User ID=hgame" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="GallimaufryConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="HGame.Player" Member="Players">
+    <Type Name="Player">
+      <Column Name="id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="sessionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="teamId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="created" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="rank" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="readNotifications" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="idle" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Player_PlayerItem" Member="PlayerItems" ThisKey="id" OtherKey="playerId" Type="PlayerItem" />
+      <Association Name="Player_PlayerTask" Member="PlayerTasks" ThisKey="id" OtherKey="playerId" Type="PlayerTask" />
+      <Association Name="Session_Player" Member="Session" ThisKey="sessionId" OtherKey="id" Type="Session" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Team_Player" Member="Team" ThisKey="teamId" OtherKey="id" Type="Team" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="HGame.PlayerItem" Member="PlayerItems">
+    <Type Name="PlayerItem">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="playerId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="itemId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Player_PlayerItem" Member="Player" ThisKey="playerId" OtherKey="id" Type="Player" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Item_PlayerItem" Member="Item" ThisKey="itemId" OtherKey="id" Type="Item" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="HGame.Newsfeed" Member="Newsfeeds">
+    <Type Name="Newsfeed">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="sessionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="body" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="created" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="context" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Association Name="Session_Newsfeed" Member="Session" ThisKey="sessionId" OtherKey="id" Type="Session" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="HGame.PlayerTask" Member="PlayerTasks">
+    <Type Name="PlayerTask">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="playerId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="taskId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="assigned" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="state" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="data" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Player_PlayerTask" Member="Player" ThisKey="playerId" OtherKey="id" Type="Player" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Task_PlayerTask" Member="Task" ThisKey="taskId" OtherKey="id" Type="Task" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="HGame.Item" Member="Items">
+    <Type Name="Item">
+      <Column Name="id" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="size" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="[unique]" Member="unique" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Item_PlayerItem" Member="PlayerItems" ThisKey="id" OtherKey="itemId" Type="PlayerItem" />
+    </Type>
+  </Table>
+  <Table Name="HGame.Session" Member="Sessions">
+    <Type Name="Session">
+      <Column Name="id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="start" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="state" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lastModified" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Association Name="Session_Player" Member="Players" ThisKey="id" OtherKey="sessionId" Type="Player" />
+      <Association Name="Session_Newsfeed" Member="Newsfeeds" ThisKey="id" OtherKey="sessionId" Type="Newsfeed" />
+      <Association Name="Session_Notification" Member="Notifications" ThisKey="id" OtherKey="sessionId" Type="Notification" />
+    </Type>
+  </Table>
+  <Table Name="HGame.Task" Member="Tasks">
+    <Type Name="Task">
+      <Column Name="id" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="manual" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="duration" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="minPlayerRank" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="minTechLevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Task_PlayerTask" Member="PlayerTasks" ThisKey="id" OtherKey="taskId" Type="PlayerTask" />
+    </Type>
+  </Table>
+  <Table Name="HGame.Notification" Member="Notifications">
+    <Type Name="Notification">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="sessionId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="recipientTeamId" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="recipientPlayerId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="created" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="message" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Session_Notification" Member="Session" ThisKey="sessionId" OtherKey="id" Type="Session" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="HGame.Team" Member="Teams">
+    <Type Name="Team">
+      <Column Name="id" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="score" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="goal" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Team_Player" Member="Players" ThisKey="id" OtherKey="teamId" Type="Player" />
+    </Type>
+  </Table>
+</Database>

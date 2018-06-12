@@ -1,0 +1,56 @@
+﻿@model PlayerTask
+@{ Layout = null; }
+
+<script>
+    var playerTaskId = @(Model.id);
+
+    $(document).ready(function () {
+        $(".modal #enter").click(function () {
+            $(".modal form").hide();
+
+            ShowWait();
+
+            $.post("/Task/Update?playerTaskId=" + playerTaskId, { data: $(".modal #data").val() });
+            _interval = setInterval(Check, 500);
+        });
+    });
+
+    function Check() {
+        $.get("/Task/GetPlayerTaskStatus?id=" + playerTaskId, function (data) {
+            if (data.status == "") return;
+
+            $.post("/Task/Update?playerTaskId=" + playerTaskId);
+            clearInterval(_interval);
+            HideWait();
+
+            if (data.status == "True") {
+                ShowCorrect(function () { HideModal(); });
+            } else {
+                ShowIncorrect(function () { HideModal(); });
+            }
+        });
+
+        // this prevents the interval from stacking up through multiple open/closes of the task modal
+        if (!$(".modal").is(":visible")) clearInterval(_interval);
+    }
+</script>
+
+<p>The Earth Plutocratic Congress is holding their centurial Interagency Technology Summit and you have been invited to represent <b>@Model.GetPlayer.GetTeam.name</b>.</p>
+
+<p> 
+    Find the representatives of the other two teams and commence the summit.
+    Traditionally, the summit ends with each representative sharing their <i>special number</i> with the others, multiplying all three together, and entering it in the box below.
+</p>
+
+<p>Your special number is <code style="font-size: 1.2em;">@Model.data.Split(',')[0]</code>.</p>
+
+<form class="">
+    <div class="form-group">
+        <input type="number" id="data" class="form-control input-lg" />
+    </div>
+    <div class="form-group">
+        <button id="enter" type="button" class="btn btn-primary btn-lg">Enter</button>
+    </div>
+
+    <p class="text-muted">Calculate carefully. You only get one chance at this.</p>
+</form>

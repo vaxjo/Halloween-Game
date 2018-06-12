@@ -1,0 +1,53 @@
+﻿@model PlayerTask
+@{ Layout = null;
+ bool isHighestRanked = (Player.CurrentPlayer.GetTeam.GetPlayers.Max(o => o.rank) == Player.CurrentPlayer.rank);   }
+
+<script>
+    var rank = @(Model.GetPlayer.rank);
+    $(document).ready(function () {
+        $(".modal #enter").click(function () {
+            $(".modal form").hide();
+
+            $.get("/Player/GetPlayerStatus?agentCode=" + $(".modal #data").val(), function (data) {
+                if (data.id == "00000000-0000-0000-0000-000000000000") {
+                    ShowIncorrect(function () { $(".modal form").show(); });
+                    
+                } else if (data.rank <= rank) {
+                    ShowIncorrectMessage(data.name + " is not of a higher rank", function () { $(".modal form").show(); });
+
+                } else if (data.team.id != "@Model.GetPlayer.teamId") {
+                    ShowIncorrectMessage(data.name + " is not on your team", function () { $(".modal form").show(); });
+
+                } else {
+                    $.post("/Task/Update?playerTaskId=@Model.id", { data: $(".modal #data").val() });
+                    ShowCorrect(function () { HideModal(); });
+                }
+            });
+        });
+
+        $(".modal #drink").click(function () {
+            $(".modal #drink").hide();
+
+            $.post("/Task/Update?playerTaskId=@Model.id");
+            ShowCorrect(function () { HideModal(); });
+        });
+    });
+</script>
+
+@if (isHighestRanked) {
+    <p>As the highest-ranked agent of the <b>@Model.GetPlayer.GetTeam.name</b> it is your right and your duty to drink this cup of space coffee before it gets too cold.</p>
+
+    <p class="text-center"><button type="button" class="btn btn-success " id="drink">Drink the Coffee</button></p>
+
+} else {
+    <p>Find a higher-ranked agent on your team and deliver this cup of space coffee to them. Enter their secret agent code below to show that you've done this.</p>
+
+    <form class="">
+        <div class="form-group">
+            <input type="number" id="data" class="form-control input-lg" placeholder="Agent Code" />
+        </div>
+        <div class="form-group">
+            <button id="enter" type="button" class="btn btn-primary btn-lg">Enter</button>
+        </div>
+    </form>
+}

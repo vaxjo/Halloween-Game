@@ -1,0 +1,47 @@
+﻿@{ Layout = null; }
+
+<script>
+    $(document).ready(function () {
+        $(".modal #add").click(function () {
+            $.post("/admin/AddNotification", $(".modal form").serialize(), function () { HideModal(); });
+        });
+    });
+</script>
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Add Notification</h4>
+        </div>
+        <div class="modal-body">
+
+            <form class="">
+                <div class="form-group">
+                    <label for="recipient" class="control-label ">Recipient</label>
+                    <select class="form-control" id="recipient" name="recipient">
+                        <option value="">All Agents</option>
+                        <optgroup label="Teams">
+                            @foreach (Team team in Team.GetAll()) {
+                                <option value="@team.id">@team.name</option>
+                            }
+                        </optgroup>
+                        <optgroup label="Agents">
+                            @foreach (Player player in Player.GetAll()) {
+                                <option value="@player.id">@player.Name</option>
+                            }
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message" class="control-label ">Message</label>
+                    <textarea id="message" name="message" class="form-control"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="add">Add</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿@{Layout = null;}
+
+<script>
+    $(document).ready(function () {
+        $("ol button").click(function () { OpenModal("/admin/Modal_Task?id=" + $(this).data("id")); });
+
+        $("#newTask").click(function () { OpenModal("/admin/Modal_Task"); });
+    });
+</script>
+
+<ol class="list-unstyled">
+    @foreach (var item in Task.GetAll().OrderBy(o => o.name)) {
+        <li><button type="button" class="btn btn-link @(item.active ? "" : "strike")" data-id="@item.id">@item.name (@item.id)</button></li>
+    }
+</ol>
+
+@if (Task.GetAll().Count == 0) {
+    <p class="text-muted">No tasks.</p>
+}
+
+<button type="button" class="btn btn-link" id="newTask"><span class="glyphicon glyphicon-plus"></span> New Task</button>

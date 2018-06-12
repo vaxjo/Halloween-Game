@@ -1,0 +1,26 @@
+﻿@model PlayerTask
+@{ Layout = null;
+ Team team = Team.Load(Model.data); }
+
+<script>
+    $(document).ready(function () {
+        $(".modal form button").click(function () {
+            $.post("/Task/Update?playerTaskId=@Model.id", { decision: $(this).data("decision") }, function () { HideModal(); });
+        });
+    });
+</script>
+
+<p><b>@team.name</b> has just made you an incredible offer if you agree to switch to their team. What will you do?</p>
+
+<form>
+    <input type="hidden" name="decision" id="decision" />
+    <input type="hidden" name="switchTeamId" id="switchTeamId" value="@team.id" />
+
+    <div id="main">
+
+        <p class="text-center">
+            <button data-decision="switch" type="button" class="btn btn-warning">Switch</button>   
+            <button data-decision="stay" type="button" class="btn btn-primary">Stay</button>
+        </p>
+    </div>
+</form>

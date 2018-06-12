@@ -1,0 +1,96 @@
+﻿@model PlayerTask
+@{ Layout = null; }
+
+<script>
+    // show the incorrect icon for a bit, then return to the callback fn
+    function ShowIncorrect(callback) {
+        $(".incorrect").show();
+        $(".incorrect h3").hide();
+        setTimeout(function () {
+            $(".incorrect").hide();
+            if (callback != undefined) callback();
+        }, 1500);
+    }
+
+    // show the incorrect icon for a bit, then return to the callback fn
+    function ShowIncorrectMessage(message, callback) {
+        $(".incorrect").show();
+        $(".incorrect h3").html(message).show();
+        setTimeout(function () {
+            $(".incorrect").hide();
+            if (callback != undefined) callback();
+        }, 2000);
+    }
+
+    // show the correct icon for a bit, then return to the callback fn
+    function ShowCorrect(callback) {
+        $(".correct").show();
+        setTimeout(function () {
+            $(".correct").hide();
+            if (callback != undefined) callback();
+        }, 1500);
+    }
+
+    // show & hide the wait icon
+    function ShowWait() { $(".wait").show(); }
+    function HideWait() { $(".wait").hide(); }
+
+    function ExpireModalTask() {
+        // don't do this if correct is visible
+        if ($(".correct").is(":visible")) return;
+
+        $("#body").hide();
+        $(".expired").show();
+        setTimeout(function () { HideModal(); }, 2000);
+    }
+</script>
+
+@if (HGameAuth.IsAuthorized && HGameApp.Settings.DevMode) {
+    <script>
+        $(".modal #cancelTask").click(function () {
+            $.get("/Task/Cancel?id=@Model.id", function (data) { HideModal(); });
+        });
+    </script>
+}
+
+<div class="modal-dialog" role="document" id="@Model.id">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">@Model.GetTask.name</h4>
+        </div>
+        <div class="modal-body">
+            <div id="body">
+                @try {
+                    @(Html.Action("ModalBody", "Task", new { playerTaskId = Model.id }))
+                } catch {
+                    <div class="alert alert-danger">ModalBody action missing for task '@Model.GetTask.id'.</div>
+                }
+            </div>
+
+            <div class="incorrect text-center" style="display:none;">
+                <h1><span class="glyphicon glyphicon-remove text-danger"></span></h1>
+                <h3></h3>
+            </div>
+
+            <div class="correct text-center" style="display:none;">
+                <h1><span class="glyphicon glyphicon-ok text-success"></span></h1>
+            </div>
+
+            <div class="expired text-center" style="display:none;">
+                <h2 class="">Time Expired</h2>
+                <h1><span class="glyphicon glyphicon-time text-danger"></span></h1>
+            </div>
+
+            <div class="wait text-center" style="display:none;">
+                <h1><span class="glyphicon glyphicon-hourglass text-info"></span></h1>
+            </div>
+        </div>
+
+      @if (HGameAuth.IsAuthorized && HGameApp.Settings.DevMode) {
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" id="cancelTask"><span class="glyphicon glyphicon-wrench"></span> Cancel Task</button>
+        </div>
+      }
+    </div>
+</div>

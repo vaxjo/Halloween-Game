@@ -1,0 +1,96 @@
+﻿@model Task
+@{ Layout = null; }
+
+<script>
+    $(document).ready(function () {
+        $(".modal #save").click(function () {
+            $.post("/admin/UpdateTask", $(".modal form").serialize(), function () { HideModal(); });
+        });
+
+        $(".modal #delete").click(function () {
+            if (!confirm("Confirm delete?")) return;
+            $.post("/admin/DeleteTask", $(".modal form").serialize(), function () { HideModal(); });
+        });
+    });
+</script>
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Admin Task</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+
+                <div class="form-group">
+                    <label for="id" class="control-label col-sm-3">Id</label>
+                    <div class="col-sm-9">
+                        @if (string.IsNullOrWhiteSpace(Model.id)) {
+                            <input type="text" id="id" name="id" value="@Model.id" class="form-control" />
+                        } else {
+                            <p class="form-control-static">@Model.id</p>
+                            <input type="hidden" name="id" value="@Model.id" />
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name" class="control-label col-sm-3">Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="name" name="name" value="@Model.name" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="active" class="control-label col-sm-3">Active</label>
+                    <div class="col-sm-3">
+                        <select id="active" name="active" class="form-control">
+                            <option value="True" @(Model.active ? "selected" : "")>Active</option>
+                            <option value="False" @(!Model.active ? "selected" : "")>Inactive</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="manual" class="control-label col-sm-3">Manual</label>
+                    <div class="col-sm-4">
+                        <select id="manual" name="manual" class="form-control">
+                            <option value="True" @(Model.manual ? "selected" : "")>Manual Only</option>
+                            <option value="False" @(!Model.manual ? "selected" : "")>Automatic</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="duration" class="control-label col-sm-3">Duration</label>
+                    <div class="col-sm-3">
+                        <input type="number" id="duration" name="duration" value="@Model.duration" class="form-control" />
+                    </div>
+                    <div class="col-sm-3 form-control-static">seconds</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="minPlayerRank" class="control-label col-sm-3">Min. Rank</label>
+                    <div class="col-sm-3">
+                        <input type="number" id="minPlayerRank" name="minPlayerRank" value="@Model.minPlayerRank" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="minTechLevel" class="control-label col-sm-3">Min. Tech</label>
+                    <div class="col-sm-3">
+                        <input type="number" id="minTechLevel" name="minTechLevel" value="@Model.minTechLevel" class="form-control" />
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="save">Save</button>
+            @if (!string.IsNullOrWhiteSpace(Model.id)) {
+                <button type="button" class="btn btn-danger" id="delete">Delete</button>
+            }
+        </div>
+    </div>
+</div>

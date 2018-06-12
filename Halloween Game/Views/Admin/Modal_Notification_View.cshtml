@@ -1,0 +1,37 @@
+﻿@model Notification
+@{ Layout = null; }
+
+<script>
+    $(document).ready(function () {
+        $(".modal #delete").click(function () {
+            if (!confirm("Confirm delete?")) return;
+            $.post("/admin/DeleteNotification", $(".modal form").serialize(), function () { HideModal(); });
+        });
+    });
+</script>
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Notification</h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal">
+                    <input type="hidden" name="id" value="@Model.id" />
+
+                    <div class="form-group">
+                        <label for="teamId" class="control-label col-sm-3">Created</label>
+                        <div class="col-sm-9 form-control-static">@Model.created.ToString()</div>
+                    </div>
+                </form>
+
+                <p>@Html.Raw(Model.message)</p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="delete">Delete</button>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,47 @@
+﻿@{ Layout = null; }
+
+<script>
+    $(".modal #displayAgentCode").click(function () {
+        $(this).hide().parent().find(".well").show();
+    });
+</script>
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Agent Profile</h4>
+        </div>
+        <div class="modal-body">
+
+            <img id="profile" src="@Player.CurrentPlayer.ImageUrl" class="img-responsive img-thumbnail" />
+
+            <p>
+                Your Name:<br />
+                <b>@Player.CurrentPlayer.Name</b>
+            </p>
+            <p>
+                Your Team:<br />
+                <b>@Player.CurrentPlayer.GetTeam.name</b>
+            </p>
+            <p>
+                Your Role:<br />
+                <b>@Player.CurrentPlayer.Role</b>
+            </p>
+
+            <hr />
+            <div class="row">
+                <div class="col-xs-offset-2 col-xs-8 text-center">
+                    <button type="button" class="btn btn-sm btn-default" id="displayAgentCode">Display Agent Code</button>
+                    <div class="well h1 " style="display:none;"><samp>@Player.CurrentPlayer.AgentCode</samp></div>
+                </div>
+            </div>
+        </div>
+
+        @if (HGameAuth.IsAuthorized) {
+            <div class="modal-footer">
+                <a href="/Admin" target="_blank" class="btn btn-danger">Admin</a>
+            </div>
+        }
+    </div>
+</div>

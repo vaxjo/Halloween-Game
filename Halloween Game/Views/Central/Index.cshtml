@@ -1,0 +1,35 @@
+﻿@{ ViewBag.Title = "Central Display";
+ ViewBag.BodyStyle = "central";  }
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+
+            // the main process that runs the game!
+            setInterval(function () { $.get("/Central/Update"); }, 5000);
+
+            // display updating
+            setInterval(function () { UpdateDisplay(); }, 4500);
+            UpdateDisplay();
+        });
+
+        function UpdateDisplay() {
+            $("#teams").load("/Central/Teams");
+            $("#newsfeed").load("/Central/NewsFeed");
+        }
+    </script>
+}
+
+<div id="normal" style="margin-top: 20px;">
+    @*<h1 class="font-central text-center" style="margin-bottom: 20px;">Central Display</h1>*@
+
+    <div class="row">
+        <div class="col-sm-8" id="teams"></div>
+        <div class="col-sm-4" id="newsfeed"></div>
+    </div>
+</div>
+
+<div id="reset" style="margin-top:200px;" class="text-center">
+    <h1><span class="glyphicon glyphicon-hourglass"></span></h1>
+    <h3>Rebooting Universe...</h3>
+</div>

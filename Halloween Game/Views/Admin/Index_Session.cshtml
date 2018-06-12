@@ -1,0 +1,43 @@
+﻿@{Layout = null;}
+
+<script>
+    $(document).ready(function () {
+        $("#newSession").click(function () {
+            if (!confirm("Starting a new session will end the current one. All players will be removed and will need to start over.")) return;
+
+            $.get("/admin/NewSession", function () { LoadAdminPage(); });
+        });
+
+        $("#state").change(function () {
+            $.post("/admin/SetState?state=" + $("#state").val());
+        });
+    });
+</script>
+
+<p>
+    <div class="row">
+        <div class="col-xs-4">Session Id</div>
+        <div class="col-xs-8 b">@Halloween_Game.Session.CurrentSession.Code</div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4">Started</div>
+        <div class="col-xs-8 b">@Halloween_Game.Session.CurrentSession.start</div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4">Elapsed</div>
+        <div class="col-xs-8 b">@Halloween_Game.Session.CurrentSession.TimeSinceStart.TotalMinutes.ToString("F2") minutes</div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4">State</div>
+        <div class="col-xs-8">
+            <select class="form-control input-sm" id="state">
+                @foreach (Halloween_Game.Session.SessionState state in Enum.GetValues(typeof(Halloween_Game.Session.SessionState))) {
+                    <option value="@state.ToString()" @(state == Halloween_Game.Session.CurrentSession.State ? "selected" : "")>@state.ToString()</option>
+                }
+            </select>
+
+        </div>
+    </div>
+</p>
+
+<p><button class="btn btn-danger center-block" type="button" id="newSession">Start New Game Session</button></p>

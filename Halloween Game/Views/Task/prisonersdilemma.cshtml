@@ -1,0 +1,48 @@
+﻿@model PlayerTask
+@{ Layout = null;
+   PlayerTask opponentTask = PlayerTask.Load(Convert.ToInt32(Model.data.Split(',')[0])); }
+
+<script>
+    var _interval, _myChoice = "";
+    $(document).ready(function () {
+        $(".modal .choice").click(function () {
+            $(".modal .choice").removeClass("btn-primary").addClass("btn-default");
+            $(this).removeClass("btn-default").addClass("btn-primary");
+            _myChoice = $(this).data("state");
+            $.post("/Task/Update?playerTaskId=@Model.id", { choice: _myChoice }, function () { });
+        });
+
+        _interval = setInterval(Check, 500);
+    });
+
+    function Check() {
+        $.get("/Task/GetPlayerTaskStatus?id=@(Model.id)", function (data) {
+            var opponentState = data.status; //  coop, betray, or ""
+
+            if (opponentState != "" && _myChoice != "") {
+                clearInterval(_interval);
+                $.post("/Task/Update?playerTaskId=@Model.id");
+                HideModal();
+            }
+        });
+
+        // this prevents the interval from stacking up through multiple open/closes of the task modal
+        if (!$(".modal").is(":visible")) clearInterval(_interval);
+    }
+</script>
+
+<p>In the interest of trans-company cooperation and mutually beneficial research you've been asked to coordinate with <b>@opponentTask.GetPlayer.Name</b> of <b>@opponentTask.GetPlayer.GetTeam.name</b>.</p>
+<p>Find that agent among the crowd and secretly decide whether you will cooperate with them - or betray them.</p>
+
+<form>
+    <p class="text-center">
+        <button data-state="coop" type="button" class="btn btn-default choice">Cooperate</button>
+        <button data-state="betray" type="button" class="btn btn-default choice">Betray</button>
+    </p>
+
+    <p class="text-muted">
+        If you both choose to cooperate each team gets a tech bonus and you each get an item.
+        If one chooses to cooperate, but the other does not, the cooperator's rank diminishes while the betrayer gets an item.
+        If you both betray each other, your ranks will increase.
+    </p>
+</form>

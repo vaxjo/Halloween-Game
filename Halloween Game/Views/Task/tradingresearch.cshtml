@@ -1,0 +1,32 @@
+﻿@model PlayerTask
+@{ Layout = null; }
+
+<script>
+    $(document).ready(function () {
+        $(".modal #enter").click(function () {
+            $(".modal form").hide();
+
+            if ($(".modal #data").val() != "@Model.data.Split(',')[1]") {
+                ShowIncorrect(function () { $(".modal form").show(); });
+
+            } else {
+                $.post("/Task/Update?playerTaskId=@Model.id", { data: $(".modal #data").val() });
+                ShowCorrect(function () { HideModal(); });
+            }
+        });
+    });
+</script>
+
+<p>The Department of Project Funding needs some information. Consult Central Display, find out the current price of @Model.data.Split(',')[0], and enter it below.</p>
+
+<form class="">
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon">$</span>
+            <input type="number" id="data" class="form-control input-lg" />
+        </div>
+    </div>
+    <div class="form-group">
+        <button id="enter" type="button" class="btn btn-primary btn-lg">Enter</button>
+    </div>
+</form>

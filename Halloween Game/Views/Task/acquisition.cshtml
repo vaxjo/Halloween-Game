@@ -1,0 +1,39 @@
+﻿@model PlayerTask
+@{ Layout = null; }
+
+<script>
+    var freeslots = @(Model.GetPlayer.AvailableItemSlots);
+    var teamId = "@(Model.GetPlayer.teamId)";
+    $(document).ready(function () {
+        $(".modal #enter").click(function () {
+            $(".modal form").hide();
+
+            $.get("/Item/GetPlayerItemStatus?transferCode=" + $(".modal #data").val(), function (data) {
+                if (data.id == 0){
+                    ShowIncorrectMessage("Invalid Transfer Code", function () { $(".modal form").show(); });
+                } else if (data.player.team.id != teamId){
+                    ShowIncorrectMessage("Item Owner on Wrong Team",function () { $(".modal form").show(); });
+                } else if (data.item.size > freeslots){
+                    ShowIncorrectMessage("Insufficient Space in your Inventory", function () { $(".modal form").show(); });
+                } else{
+                    $.post("/Task/Update?playerTaskId=@Model.id", { data: $(".modal #data").val() });
+                    ShowCorrect(function () { HideModal(); });
+                }
+            });
+        });
+    });
+</script>
+
+<p>A blank Item Requisition Request form has landed on your desk. You may request any item from any teammate by entering that item's transfer code into the box below.</p>
+<p><small>Fine print: you must have enough room in your inventory for the requested item. The owner of the requested item can decline to give it to you.</small></p>
+
+<form class="">
+    <div class="form-group">
+        <input type="number" id="data" class="form-control input-lg" />
+    </div>
+    <div class="form-group">
+        <button id="enter" type="button" class="btn btn-primary btn-lg">Enter</button>
+    </div>
+</form>
+
+

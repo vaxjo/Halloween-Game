@@ -1,0 +1,35 @@
+﻿@model Team
+@{ ViewBag.Title = "Join";
+   ViewBag.BodyStyle = "css-" + Model.id; }
+
+@* this page is displayed on the user's device *@
+
+@section scripts {
+    <script>
+        @*$(document).ready(function () {
+            $("#join").click(function () {
+                $.post("/Team/Confirm?session=@ViewBag.SessionCode&team=@Model.id", function () {
+                    window.location = "/";
+                });
+            });
+        });*@
+    </script>
+}
+
+<div class="text-center" style="color: #fff;">
+
+    <h1 class="font-@(Model.id)">@Model.name</h1>
+
+    <div class="row" style="margin-bottom:20px;">
+        <div class="col-xs-offset-3 col-xs-6">
+            <img src="~/Content/logo bw @(Model.id).png" class="img-responsive" />
+        </div>
+    </div>
+
+    <p style="margin-bottom:20px;">@Model.description</p>
+
+    @*<p><button type="button" class="btn btn-default btn-lg font-@(Model.id)" id="join">Join</button></p>*@
+
+    <p><a class="btn btn-default btn-lg font-@(Model.id)" href="/Team/Confirm?session=@ViewBag.SessionCode&team=@Model.id">Join</a></p>
+
+</div>

@@ -1,0 +1,37 @@
+﻿info	Stock prices plummet like a Class-9 gravity well.
+info	Politics keep happening. Protestors unable to stop it.
+info	Last night's space score: 12-764.
+info	Entire entertainment industry fails to receive a single award at last night's Gremmys.
+info	OBEY
+info	Today's lottery results: 4
+
+# https://www.c64-wiki.com/wiki/M.U.L.E.#Random_Events
+
+info	Several simultaneous system-wide planetquakes cause mass chaos. Commodity trading is unaffected.
+info	Unusual sunspot activity detected.
+info	Space pirate menace increasing. Earth Plutocratic Congress reportedly doing nothing.
+
+# from ian
+
+info	FIRE SALE! Prenatal Battery Fluid Containers. 15% off discount with purchase of six or more amniocentesis-es.
+info	Terrestrial cheese prices soar after Moon is befouled by botulism.
+info	Thoughts and Prayers cease flooding on Titan.
+info	"Intergalactic" by the Beastie Boys is forever banned in Milky Way by order of EPC.
+info	"Martian Like Me" to be turned into four part mini-series on MET network.
+info	NewsFeed brought to you by a generous grant from #RomulanLivesMatter.
+info	Whether the weather withers or wears we will weather whichever, who cares.
+info	GAMMA RAY ACCIDENT: Revved up like a deuce, Manfred Mann is blinded by the light.
+info	Medical News: Heartburn cured with death.
+info	Summit on synergy engineering delayed due to silicon storm.
+info	Statue to 21st century Despot 45 removed from EPC grounds. EPC minority leader worries that Earth will forget its history.
+info	Old Man shakes fist at cloud.
+info	Health News: Removing fingers from nostrils allows for easier breathing.
+info	Holiday News: None. Get back to work.
+info	Food News: "If you can swallow it, it's technically food." - Some Man
+info	Music News: 4,765th wave of Ska Fest attended by record-breaking crowd of 13. (1 live man, 1 deceased woman, 11 cats in two-tone rude boy outfits.)
+info	Intergalactic NewsFeed – "It's good enough for your ilk!"(TM)
+info	Imaginary Numbers and Integers proven real. Just trust us ok, we know.
+info	The Winston Warp One Hundred race wows millions for light years at Talledaga intergalactic speedway.
+info	Hot dogs recognized as official food of Earth by EPC.
+info	35W construction officially longest terrestrial project in Earth's history.
+info	Health News: Loving a person a bushel and a peck leads to scabies and Hep-C.

@@ -1,0 +1,40 @@
+﻿@model PlayerTask
+@{ Layout = null; }
+
+<script>
+    $(document).ready(function () {
+        $(".modal #retrieve").click(function () {
+            $(".modal form").hide();
+            $.post("/Task/Update?playerTaskId=@Model.id", { itemId: $(".modal #itemId").val() });
+            ShowCorrect(function () { HideModal(); });
+        });
+
+        $(".modal #nope").click(function () {
+            $.post("/Task/Update?playerTaskId=@Model.id");
+            HideModal(); 
+        });
+    });
+</script>
+
+<p>
+    You have been granted exclusive access to the <b>@Model.GetPlayer.GetTeam.name</b> warehouse, in which dusty, but potentially useful, items have been stored.
+    You may select one to add to your personal inventory.
+</p>
+
+<form class="">
+    <div class="form-group">
+        <select id="itemId" name="itemId" class="form-control">
+            @foreach (Item item in Model.GetPlayer.GetTeam.WarehouseGet().Where(o => o.size <= Model.GetPlayer.AvailableItemSlots)) {
+                <option value="@item.id">@item.name</option>                
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <button id="retrieve" type="button" class="btn btn-primary btn-lg">Retrieve Item</button>
+    </div>
+    <div class="form-group">
+        <button id="nope" type="button" class="btn btn-warning btn-lg">Not This Time</button>
+    </div>
+</form>
+
+

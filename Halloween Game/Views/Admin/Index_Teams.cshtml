@@ -1,0 +1,32 @@
+﻿@{Layout = null;}
+
+<script>
+    $(document).ready(function () {
+        $("ol button").click(function () { OpenModal("/admin/Modal_Team?id=" + $(this).data("id")); });
+
+        $("#newTeam").click(function () { OpenModal("/admin/Modal_Team"); });
+    });
+</script>
+
+<ol class="list-unstyled">
+    @foreach (var team in Team.GetAll().OrderBy(o => o.name)) {
+        <li>
+            <button type="button" class="btn btn-link" data-id="@team.id">@team.name</button>
+            <span class="badge">@team.score</span>
+            <span class="label label-info">@team.TechLevelLetter</span>
+
+            <p class="text-muted">
+                <small>
+                    Agents: @team.GetPlayers.Count, @string.Join(", ", team.GetPlayers.Select(o => o.Name))<br />
+                    Warehouse: @string.Join(", ", team.WarehouseGet().Select(o => o.id))<br />
+                </small>
+            </p>
+        </li>
+    }
+</ol>
+
+@if (Team.GetAll().Count == 0) {
+    <p class="text-muted">No teams.</p>
+}
+
+<button type="button" class="btn btn-link" id="newTeam"><span class="glyphicon glyphicon-plus"></span> New Team</button>

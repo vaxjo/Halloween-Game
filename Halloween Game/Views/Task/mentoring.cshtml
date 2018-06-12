@@ -1,0 +1,42 @@
+﻿@model PlayerTask
+@{ Layout = null;
+ Player targetPlayer = Player.Load(new Guid(Model.data)); }
+
+<script>
+    $(document).ready(function () {
+        $(".modal #enter").click(function () {
+            $(".modal form").hide();
+
+            $.get("/Player/GetPlayerStatus?agentCode=" + $(".modal #agentCode").val(), function (data) {
+                if (data.id != "@Model.data") {
+                    ShowIncorrect(function () { $(".modal form").show(); });
+
+                } else {
+                    $.post("/Task/Update?playerTaskId=@(Model.id)", { itemId: $(".modal #itemId").val() });
+                    ShowCorrect(function () { HideModal(); });
+                }
+            });
+        });
+    });
+</script>
+
+<p>
+    You've been asked to help mentor another agent of the <b>@Model.GetPlayer.GetTeam.name</b>.
+    Find <b>@targetPlayer.Name</b>, enter their agent code in the box below, and select an item to help them develop.
+</p>
+
+<form class="">
+    <div class="form-group">
+        <input type="number" id="agentCode" class="form-control input-lg" />
+    </div>
+    <div class="form-group">
+        <select id="itemId" name="itemId" class="form-control">
+            @foreach (Item item in Item.GetAll().Where(o => o.size == 2)) {
+                <option value="@item.id">@item.name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <button id="enter" type="button" class="btn btn-primary btn-lg">Mentor</button>
+    </div>
+</form>

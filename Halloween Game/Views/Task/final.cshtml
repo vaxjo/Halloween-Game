@@ -1,0 +1,71 @@
+﻿@model PlayerTask
+@{ Layout = null; }
+
+<script>
+    var _interval;
+    $(document).ready(function () {
+        $(".modal #start").click(function () {
+            $(this).button("loading");
+            $.post("/Task/Update?playerTaskId=@Model.id", { start: $(this).closest(".row").attr("id") }, function () { });
+        });
+
+        _interval = setInterval(Check, 500);
+    });
+
+    function Check() {
+        $.get("/Task/GetPlayerTaskStatus?id=@(Model.id)", function (data) {
+            var finalitems = data.status.split(";"); // Wait;converter,123123123;manifold,54325
+            for (i = 1; i < finalitems.length; i++) {
+                var finalItemId = finalitems[i].split(",")[0];
+                var ticks = finalitems[i].split(",")[1]; // 0 = unstarted
+                if (ticks > 0) {
+                    $("#" + finalItemId + " .status .offline").hide();
+                    $("#" + finalItemId + " .status .online").show();
+                }
+            }
+
+            if (finalitems[0] == "Fail") {
+                // failed!
+                $("#body .row").hide();
+                ShowIncorrect(function () {
+                    $.post("/Task/Update?playerTaskId=@Model.id");
+                    HideModal();
+                });
+
+            } else if (finalitems[0] == "Done") {
+                // succeed!
+                $("#body .row").hide();
+                ShowCorrect(function () {
+                    $.post("/Task/Update?playerTaskId=@Model.id");
+                    HideModal();
+                });
+            }
+        });
+
+        // this prevents the interval from stacking up through multiple open/closes of the task modal
+        if (!$(".modal").is(":visible")) clearInterval(_interval);
+    }
+</script>
+
+<p>
+    Your team has collectively managed to build all three final assemblies.
+    Find the two agents who have the other final assemblies and get ready to coordinate your efforts.
+</p>
+
+<p>To execute the final interconnections, you must all start your respective devices <i>at the same time</i>. </p>
+
+@foreach (string itemId in new string[] { "converter", "manifold", "compensator" }) {
+    <div id="@itemId" class="row" style="margin-bottom:10px;">
+        <div class="col-xs-6 b">
+            @Item.Load(itemId).name
+        </div>
+        <div class="col-xs-6 text-center status">
+            @if (Model.GetPlayer.GetItems.Select(o => o.itemId).Contains(itemId)) {
+                <button type="button" class="btn btn-success offline" data-loading-text="Starting..." id="start">Start</button>
+            } else {
+                <div class="text-danger bg-danger offline" style="padding: 5px 0;">[OFFLINE]</div>
+            }
+            <p class="text-success bg-success online" style="padding: 5px 0; display:none;">[ONLINE]</p>
+        </div>
+    </div>
+}

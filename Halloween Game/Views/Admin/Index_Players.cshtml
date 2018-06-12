@@ -1,0 +1,39 @@
+﻿@{Layout = null;}
+
+<script>
+    $(document).ready(function () {
+        $("ol button").click(function () { OpenModal("/admin/Modal_Player?id=" + $(this).data("id")); });
+
+        $("#newFakePlayer").click(function () { $.post("/admin/NewFakePlayer", function () { LoadAdminPage(); }); });
+    });
+</script>
+
+@foreach (Team team in Team.GetAll().Where(o => Player.GetAll().Where(p => p.teamId == o.id).Count() > 0)) {
+    <h4>@team.name <span class="badge">@team.TechLevel</span></h4>
+
+    <ol class="list-unstyled">
+        @foreach (var player in Player.GetAll().Where(o => o.teamId == team.id).OrderBy(o => o.Name)) {
+            <li>
+                <button type="button" class="btn btn-link" data-id="@player.id">@player.Name <span class="badge">@player.rank</span></button>
+                @if (player.idle) {
+                    <span class="label label-warning">idle</span>
+                }
+                @if (player.id == Player.CurrentPlayerId) {
+                    <span class="label label-info">you</span>
+                }
+                 <p class="text-muted">
+                    <small>
+                        Items: @string.Join(", ", player.GetItems.Select(o => o.itemId))<br />
+                        Tasks: @string.Join(", ", player.GetTasks.Select(o => o.taskId))<br />
+                    </small>
+                </p>
+            </li>
+        }
+    </ol>
+}
+
+@if (Player.GetAll().Count == 0) {
+    <p class="text-muted">No agents.</p>
+}
+
+<button type="button" class="btn btn-link" id="newFakePlayer"><span class="glyphicon glyphicon-plus"></span> New Fake Agent</button>

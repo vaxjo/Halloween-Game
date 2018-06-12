@@ -1,0 +1,148 @@
+﻿@model Player
+@{ Layout = null; }
+
+<script>
+    $(document).ready(function () {
+
+        $(".modal #teamId").change(function () {
+            $.post("/admin/ChangeTeam?playerId=@Model.id&teamId=" + $(this).val());
+        });
+
+        $(".modal #rank").change(function () {
+            $.post("/admin/ChangeRank?playerId=@Model.id&rank=" + $(this).val(), function (data) { $(".modal #role").text(data); });
+        });
+
+        //tasks
+        $("#currentTasks .glyphicon-refresh").click(function () { RefreshTasks(); }).click();
+
+        $(".modal #currentTasks").on("click", ".killTask", function () {
+            $.post("/admin/KillTask?id=" + $(this).data("id"), function () { RefreshTasks(); });
+        });
+
+        $(".modal #assignTask").change(function () {
+            $.post("/admin/AssignTask?playerId=@Model.id&id=" + $(this).val(), function () {
+                $(".modal #assignTask").val("");
+                RefreshTasks();
+            });
+        });
+
+        // items
+        $("#currentItems .glyphicon-refresh").click(function () { RefreshItems(); }).click();
+
+        $(".modal #currentItems").on("click", ".removeItem", function () {
+            $.post("/admin/RemoveItem?id=" + $(this).data("id"), function () { RefreshItems(); });
+        });
+
+        $(".modal #addItem").change(function () {
+            $.post("/admin/AddItem?playerId=@Model.id&itemId=" + $(this).val(), function () {
+                $(".modal #addItem").val("");
+                RefreshItems();
+            });
+        });
+
+        $(".modal #delete").click(function () {
+            if (!confirm("Confirm delete?")) return;
+            $.post("/admin/DeletePlayer", $(".modal form").serialize(), function () { HideModal(); });
+        });
+    });
+
+    function RefreshTasks() {
+        $("#currentTasks div").load("/admin/Modal_Player_GetTasks?id=@Model.id");
+    }
+    function RefreshItems() {
+        $("#currentItems div").load("/admin/Modal_Player_GetItems?id=@Model.id");
+    }
+</script>
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Admin Player</h4>
+        </div>
+        <div class="modal-body">
+
+            <div class="row">
+                <div class="col-xs-4">
+                    <img src="@Model.ImageUrl" class="img-responsive img-thumbnail" />
+                </div>
+                <div class="col-xs-8">
+                    <dl class="dl-horizontal">
+                        <dt>Name</dt>
+                        <dd>@Model.Name</dd>
+                        <dt>Team</dt>
+                        <dd id="role">@Model.GetTeam.id</dd>
+                        <dt>Role</dt>
+                        <dd id="role">@Model.Role</dd>
+                        <dt>Agent Code</dt>
+                        <dd id="role">@Model.AgentCode</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <form class="form-horizontal">
+                <input type="hidden" name="id" value="@Model.id" />
+
+                <div class="form-group">
+                    <label for="teamId" class="control-label col-sm-3">Team</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" id="teamId" name="teamId">
+                            @foreach (var item in Team.GetAll().OrderBy(o => o.name)) {
+                                <option value="@item.id" @(item.id == Model.teamId ? "selected" : "")>@item.name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="rank" class="control-label col-sm-3">Rank</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" id="rank" value="@Model.rank" />
+                    </div>
+                </div>
+
+                <div class="form-group" id="currentTasks">
+                    <label for="" class="control-label col-sm-3">Current Tasks <span class="glyphicon glyphicon-refresh" style="cursor:pointer;"></span></label>
+                    <div class="col-sm-9"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="assignTask" class="control-label col-sm-3">Assign Task</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" id="assignTask" name="assignTask">
+                            <option value=""></option>
+                            @foreach (var item in Task.GetAll().OrderBy(o => o.name)) {
+                                <option value="@item.id">@item.name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" id="currentItems">
+                    <label for="" class="control-label col-sm-3">Current Items <span class="glyphicon glyphicon-refresh" style="cursor:pointer;"></span></label>
+                    <div class="col-sm-9"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="addItem" class="control-label col-sm-3">Add Item</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" id="addItem" name="addItem">
+                            <option value=""></option>
+                            @foreach (short size in Item.GetAll().Select(o => o.size).Distinct().OrderBy(o => o)) {
+                                <optgroup label="@size-slot">
+                                    @foreach (var item in Item.GetAll().Where(o => o.size == size).OrderBy(o => o.name)) {
+                                        <option value="@item.id">@item.name</option>
+                                    }
+                                </optgroup>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" id="delete">Delete</button>
+        </div>
+    </div>
+</div>

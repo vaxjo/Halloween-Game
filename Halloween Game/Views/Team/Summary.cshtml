@@ -1,0 +1,18 @@
+﻿@{ ViewBag.Title = "Team Summary"; }
+
+<h1>Join a Team <small>dev util</small></h1>
+
+<h3>
+    <ul cxlass="list-unstyled">
+        @foreach (var item in Team.GetAll()) {
+            <li>
+                @if (Request.IsLocal) {
+                    <a href="/Team?team=@item.id">@item.name</a>
+                } else {
+                    <a href="http://@(item.id).jarrin.net/Team">@item.name</a>
+                }
+            </li>
+        }
+    </ul>
+
+</h3>

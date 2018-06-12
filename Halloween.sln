@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Halloween Game", "Halloween Game\Halloween Game.csproj", "{F836292A-4DFF-47C2-8450-740D1F97C04D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		WinHost|Any CPU = WinHost|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F836292A-4DFF-47C2-8450-740D1F97C04D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F836292A-4DFF-47C2-8450-740D1F97C04D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F836292A-4DFF-47C2-8450-740D1F97C04D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F836292A-4DFF-47C2-8450-740D1F97C04D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F836292A-4DFF-47C2-8450-740D1F97C04D}.WinHost|Any CPU.ActiveCfg = WinHost|Any CPU
+		{F836292A-4DFF-47C2-8450-740D1F97C04D}.WinHost|Any CPU.Build.0 = WinHost|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {061C49CC-2954-4524-88F7-391B7D7D1915}
+	EndGlobalSection
+EndGlobal

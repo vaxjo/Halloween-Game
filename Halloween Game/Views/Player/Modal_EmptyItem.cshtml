@@ -1,0 +1,44 @@
+﻿@{ Layout = null; }
+
+<script>
+    $(".modal #request").click(function () {
+        $.post("/Player/Modal_EmptyItem?request=True");
+        HideModal();
+    });
+</script>
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Empty Item Slot</h4>
+        </div>
+        <div class="modal-body">
+
+            <p>
+                This empty gray square represents the lack of existance of an item.
+                It is the essence of potentiality.
+                A nothingness from which is born invention and technology.
+            </p>
+            <p>
+                Through tasks and assignments you will receive items to fill these voids.
+                Those items can be combined to create other, more advanced items.
+                If you have the skill and the ability to cooperate you will surely succeed.
+            </p>
+            <h3><i>For @Player.CurrentPlayer.GetTeam.goal!</i></h3>
+            
+            @if (Player.CurrentPlayer.Rank > 30) {
+            <hr />
+                    <p>
+                    If you prefer not to be patient you may request an <i>Item Requisition Request Form</i> that you can use to acquire items from your teammates.
+                </p>
+
+                if (!Player.CurrentPlayer.HasTask("acquisition")) {
+                    <div class="text-center"><p><button type="button" class="btn btn-default" id="request">Request Item Requisition Request Form</button></p></div>
+                } else {
+                    <div class="alert alert-warning">You already have an outstanding <i>Item Requisition Request Form</i> and may not request another.</div>
+                }
+            }
+        </div>
+    </div>
+</div>

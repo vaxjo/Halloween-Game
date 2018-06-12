@@ -1,0 +1,107 @@
+﻿@model Team
+@{ Layout = null; }
+
+<script>
+    $(document).ready(function () {
+        $(".modal #save").click(function () {
+            $.post("/admin/UpdateTeam", $(".modal form").serialize(), function () { HideModal(); });
+        });
+
+        $(".modal #delete").click(function () {
+            if (!confirm("Confirm delete?")) return;
+            $.post("/admin/DeleteTeam", $(".modal form").serialize(), function () { HideModal(); });
+        });
+
+        //tasks
+        $("#warehouse .glyphicon-refresh").click(function () { RefreshWarehouse(); }).click();
+
+        $(".modal #warehouse").on("click", ".removeItem", function () {
+            $.post("/admin/RemoveWarehouseItem?teamId=@Model.id&itemId=" + $(this).data("id"), function () { RefreshWarehouse(); });
+        });
+
+        $(".modal #addItem").change(function () {
+            $.post("/admin/AddWarehouseItem?teamId=@Model.id&itemId=" + $(this).val(), function () {
+                $(".modal #addItem").val("");
+                RefreshWarehouse();
+            });
+        });
+
+    });
+
+    function RefreshWarehouse() {
+        $("#warehouse div").load("/admin/Modal_Team_GetWarehouse?id=@Model.id");
+    }
+</script>
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Admin Team</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="id" class="control-label col-sm-3">Id</label>
+                    <div class="col-sm-9">
+                        @if (string.IsNullOrWhiteSpace(Model.id)) {
+                            <input type="text" id="id" name="id" value="@Model.id" class="form-control" />
+                        } else {
+                            <p class="form-control-static">@Model.id</p>
+                            <input type="hidden" name="id" value="@Model.id" />
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name" class="control-label col-sm-3">Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="name" name="name" value="@Model.name" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description" class="control-label col-sm-3">Description</label>
+                    <div class="col-sm-9">
+                        <textarea id="description" name="description" class="form-control">@Model.description</textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="score" class="control-label col-sm-3">Score</label>
+                    <div class="col-sm-3">
+                        <input type="number" id="score" name="score" value="@Model.score" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group" id="warehouse">
+                    <label for="" class="control-label col-sm-3">Warehouse <span class="glyphicon glyphicon-refresh" style="cursor:pointer;"></span></label>
+                    <div class="col-sm-9"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="addItem" class="control-label col-sm-3">Add Item</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" id="addItem" name="addItem">
+                            <option value=""></option>
+                            @foreach (short size in Item.GetAll().Select(o => o.size).Distinct().OrderBy(o => o)) {
+                                <optgroup label="@size-slot">
+                                    @foreach (var item in Item.GetAll().Where(o => o.size == size).OrderBy(o => o.name)) {
+                                        <option value="@item.id">@item.name</option>
+                                    }
+                                </optgroup>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="save">Save</button>
+            @if (!string.IsNullOrWhiteSpace(Model.id)) {
+                <button type="button" class="btn btn-danger" id="delete">Delete</button>
+            }
+        </div>
+    </div>
+</div>

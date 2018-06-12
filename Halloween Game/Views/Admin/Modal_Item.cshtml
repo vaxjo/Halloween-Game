@@ -1,0 +1,87 @@
+﻿@model Item
+@{ Layout = null; }
+
+<script>
+    $(document).ready(function () {
+        $(".modal #save").click(function () {
+            $.post("/admin/UpdateItem", $(".modal form").serialize(), function () { HideModal(); });
+        });
+
+        $(".modal #delete").click(function () {
+            if (!confirm("Confirm delete?")) return;
+            $.post("/admin/DeleteItem", $(".modal form").serialize(), function () { HideModal(); });
+        });
+    });
+</script>
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Item</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="id" class="control-label col-sm-3">Id</label>
+                    <div class="col-sm-9">
+                        @if (string.IsNullOrWhiteSpace(Model.id)) {
+                            <input type="text" id="id" name="id" value="@Model.id" class="form-control" />
+                        } else {
+                            <p class="form-control-static">@Model.id</p>
+                            <input type="hidden" name="id" value="@Model.id" />
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9 form-control-static">
+                        <img src="~/Content/Items/@(Model.id).png" class="img-responsive" style="max-height:80px;" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name" class="control-label col-sm-3">Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="name" name="name" value="@Model.name" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description" class="control-label col-sm-3">Description</label>
+                    <div class="col-sm-9">
+                        <textarea id="description" name="description" class="form-control">@Model.description</textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="size" class="control-label col-sm-3">Size</label>
+                    <div class="col-sm-2">
+                        <select id="size" name="size" class="form-control">
+                            @for (int i = 1; i <= 4; i++) {
+                                <option value="@i" @(i == Model.size ? "selected" : "")>@i</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="unique" class="control-label col-sm-3">Unique</label>
+                    <div class="col-sm-3">
+                        <select id="unique" name="unique" class="form-control">
+                            <option value="True" @(Model.unique ? "selected" : "")>True</option>
+                            <option value="False" @(!Model.unique ? "selected" : "")>False</option>
+                        </select>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="save">Save</button>
+            @if (!string.IsNullOrWhiteSpace(Model.id)) {
+                <button type="button" class="btn btn-danger" id="delete">Delete</button>
+            }
+        </div>
+    </div>
+</div>

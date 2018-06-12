@@ -1,0 +1,27 @@
+﻿@model PlayerTask
+@{ Layout = null; }
+
+<script>
+    var recursionLevel = 0;
+    var playerTaskId = @Model.id;
+    $(document).ready(function () {
+        $(".modal #body").on("click", ".investigate", function () {
+            recursionLevel++;
+            var x = $(this).closest(".h").clone();
+            $(this).closest("div").empty().append(x);
+        });
+
+        $(".modal").on("hidden.bs.modal", function (e) {
+            $(".modal").off();
+            $.post("/Task/Update?playerTaskId="+playerTaskId, { RecursionLevel: recursionLevel }, function () { });
+        });
+    });
+</script>
+
+<div class="h">
+    <p>You receive a memo from the Department of Redundancy Department that your investigation of recursion is generating too much recursion. There's only one thing you can do.</p>
+
+    <div style="border: 1px solid #888; padding: 10px;">
+        <button type="button" class="btn btn-success investigate center-block">Investigate Recursion</button>
+    </div>
+</div>

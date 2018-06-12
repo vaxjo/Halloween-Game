@@ -1,0 +1,39 @@
+﻿@model PlayerTask
+@{ Layout = null;
+   PlayerItem itemToRetrieve = PlayerItem.Load(Convert.ToInt32(Model.data)); }
+
+<script>
+    $(document).ready(function () {
+        $(".modal #enter").click(function () {
+            $(".modal form").hide();
+
+            if ($(".modal #data").val() == "@itemToRetrieve.TransferCode" && $(".modal #data").val() == $(".modal #data2").val() && $(".modal #data").val() == $(".modal #data3").val()) {
+                $.post("/Task/Update?playerTaskId=@Model.id", { data: $(".modal #data").val() });
+                ShowCorrect(function () { HideModal(); });
+
+            } else {
+                ShowIncorrect(function () { $(".modal form").show(); });
+
+            }
+        });
+    });
+</script>
+
+<p>Another agent of the @Model.GetPlayer.GetTeam.name is currently in possession of an important form you need to complete your work.
+
+<p>Find the agent who has the <b>27B/6</b> document and enter its transfer code in the boxes below. In triplicate.</p>
+
+<form class="">
+    <div class="form-group">
+        <input type="number" id="data" class="form-control input-lg" />
+    </div>
+    <div class="form-group">
+        <input type="number" id="data2" class="form-control input-lg" />
+    </div>
+    <div class="form-group">
+        <input type="number" id="data3" class="form-control input-lg" />
+    </div>
+    <div class="form-group">
+        <button id="enter" type="button" class="btn btn-primary btn-lg">Enter</button>
+    </div>
+</form>

@@ -1,0 +1,35 @@
+﻿@model PlayerTask
+@{ Layout = null;
+ Item saleableItem = Item.Load(Model.data); }
+
+<script>
+    $(document).ready(function () {
+        $(".modal #trade").click(function () {
+            $.post("/Task/Update?playerTaskId=@Model.id", { action: "trade", itemId: $(".modal #itemId").val() }, function () { HideModal(); });
+        });
+
+        $(".modal #decline").click(function () {
+            $.post("/Task/Update?playerTaskId=@Model.id", { action: "decline" }, function () { HideModal(); });
+        });
+    });
+</script>
+
+<p>While wandering around the local space marketplace you find a potential useful item: <b>@saleableItem.name</b>.</p>
+
+<p><img src="~/Content/Items/@(saleableItem.id).png" class="img-responsive" /></p>
+
+<p>The current owner will consider trading it for some of your current items.</p>
+
+<form class="">
+    <div class="form-group">
+        <select class="form-control" id="itemId" name="itemId">
+            @foreach (PlayerItem item in Model.GetPlayer.GetItems.Where(o => o.GetItem.size == saleableItem.size && !o.GetItem.unique)) {
+                <option value="@item.id">@item.GetItem.name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group text-center">
+        <button id="trade" type="button" class="btn btn-primary btn-lg">Trade</button>
+        <button id="decline" type="button" class="btn btn-warning btn-lg">Decline</button>
+    </div>
+</form>

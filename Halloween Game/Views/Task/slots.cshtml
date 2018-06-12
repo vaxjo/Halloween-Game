@@ -1,0 +1,134 @@
+﻿@model PlayerTask
+@{ Layout = null; }
+
+<script>
+    var playerTaskId = @(Model.id);
+    var rank = @(Model.GetPlayer.rank);
+    var _money = @(Model.data), _spinning=false;
+
+    $(document).ready(function () {
+        UpdateMoney(0);
+
+        $(".modal #pull").click(function () {
+            if (_spinning || _money < 1) return;
+
+            _spinning = true;
+            SetStatus("");
+            $("#slotmachine").addClass("spinning");
+            $(".modal #pull").addClass("disabled");
+            UpdateMoney(-1);
+            Spin(10);
+        });
+    });
+
+    function UpdateMoney(d) {
+        _money += d;
+        $("#slotmachine #money").text(_money);
+        $.post("/Task/Update?playerTaskId=" + playerTaskId, { money: _money });
+    }
+
+    function SetStatus(s) {
+        $("#slotmachine #status").text(s);
+    }
+
+    function Spin(delay) {
+        $(".modal #slotmachine img").each(function () {
+            var n = Math.floor(Math.random() * 9);
+            $(this).prop("src", "/Content/Tasks/slots/" + n + ".png").data("n", n);
+        });
+
+        if (delay < 500) {
+            setTimeout(function () { Spin(delay * 1.1); }, delay);
+            return;
+        }
+
+        // winner/loser
+        var n0 = $(".modal #slotmachine img:eq(0)").data("n");
+        var n1 = $(".modal #slotmachine img:eq(1)").data("n");
+        var n2 = $(".modal #slotmachine img:eq(2)").data("n");
+
+        // three-bar
+        if (n0 == 7 && n1 == 7 && n2 == 7) {
+            SetStatus("WINNER");
+            $.post("/Task/Update?playerTaskId=" + playerTaskId, { win: 3 });
+            setTimeout(function () { HideModal(); }, 2000);
+            return;
+        }
+
+        // three of a kind (other than bar)
+        if (n0 == n1 && n1 == n2) {
+            SetStatus("WINNER");
+            $.post("/Task/Update?playerTaskId=" + playerTaskId, { win: 2 });
+            setTimeout(function () { HideModal(); }, 2000);
+            return;
+        }
+
+        // all aliens (aliens are 0-3)
+        if (n0 < 4 && n1 < 4 && n2 < 4) {
+            SetStatus("WINNER");
+            $.post("/Task/Update?playerTaskId=" + playerTaskId, { win: 1 });
+            setTimeout(function () { HideModal(); }, 2000);
+            return;
+        }
+
+        // only minor victories here on out, go ahead and let them spin
+        _spinning = false;
+        $("#slotmachine").removeClass("spinning");
+        $(".modal #pull").removeClass("disabled");
+
+        // n-cherries (6.png = cherry)
+        var cherries = 0;
+        if (n0 == 6) cherries++;
+        if (n1 == 6) cherries++;
+        if (n2 == 6) cherries++;
+        if (cherries == 2) {
+            SetStatus("+ $2");
+            UpdateMoney(+2);
+            return;
+        } else if (cherries == 1) {
+            SetStatus("+ $1");
+            UpdateMoney(+1);
+            return;
+        }
+
+        if (_money == 0) {
+            SetStatus("LOSER");
+            $.post("/Task/Update?playerTaskId=" + playerTaskId, { win: 0 });
+            setTimeout(function () { HideModal(); }, 2000);
+            return;
+        }
+    }
+</script>
+
+<style>
+    #slotmachine table { width: 100%; margin-bottom: 10px; }
+    #slotmachine td { border: 1px solid #000; }
+    #slotmachine .row { font-size: 1.8em; font-weight: bold; }
+
+    #slotmachine.spinning td { background-color: #eee; }
+</style>
+
+<p>In between projects you like to spend your time wasting your hard earned space bucks. Maybe this time it'll pay off?</p>
+
+<div id="slotmachine">
+    <table>
+        <tbody>
+            <tr>
+                <td><img src="/Content/Tasks/slots/7.png" class="img-responsive window" /></td>
+                <td><img src="/Content/Tasks/slots/7.png" class="img-responsive window" /></td>
+                <td><img src="/Content/Tasks/slots/7.png" class="img-responsive window" /></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-xs-4 text-success text-center">
+            $<span id="money"></span>
+        </div>
+        <div class="col-xs-4 text-success text-center" id="status"></div>
+        <div class="col-xs-4 text-center">
+            <button type="button" class="btn btn-success btn-lg" id="pull">Pull!</button>
+        </div>
+    </div>
+
+</div>

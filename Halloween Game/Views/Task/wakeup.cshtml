@@ -1,0 +1,18 @@
+﻿@model PlayerTask
+@{ Layout = null; }
+
+<script>
+    $(document).ready(function () {
+        $(".modal #pressme").click(function () {
+            $(".modal button").hide();
+            $.post("/Task/Update?playerTaskId=@Model.id");
+            ShowCorrect(function () { HideModal(); });
+        });
+    });
+</script>
+
+<p>This is no time for a nap. Destiny awaits.</p>
+
+<div class="text-center">
+    <button id="pressme" type="button" class="btn btn-primary">I'm awake!</button>
+</div>

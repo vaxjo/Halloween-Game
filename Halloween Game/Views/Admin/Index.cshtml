@@ -1,0 +1,89 @@
+﻿@{ ViewBag.Title = "Admin"; }
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#adminPage").change(function () { LoadAdminPage(); }).change();
+            $("#refresh").click(function () { LoadAdminPage(); });
+            $(".modal").on("hidden.bs.modal", function (e) { LoadAdminPage(); });
+
+            $("#deleteAllSessions").click(function () {
+                if (!confirm("Confirm deleting all game history, players and all players' history.")) return;
+                $.get("/admin/DeleteAllSessions", function () {
+                    alert("All sessions deleted.");
+                    LoadAdminPage();
+                });
+            });
+
+            $("#emptyCache").click(function () {
+                $.get("/admin/EmptyCache", function () {
+                    alert("Cache cleared.");
+                    LoadAdminPage();
+                });
+            });
+        });
+
+        function LoadAdminPage() {
+            $(".glyphicon-refresh").addClass("glyphicon-hourglass").removeClass("glyphicon-refresh");
+            $("#pageContent").load("/admin/Index?page=" + $("#adminPage").val(), function (responseText, textStatus, req) {
+                if (textStatus == "error") {
+                    //console.log(req);
+                    //console.log(responseText);
+                    $("#pageContent").html(responseText);
+                }
+                $(".glyphicon-hourglass").addClass("glyphicon-refresh").removeClass("glyphicon-hourglass");
+            });
+        }
+    </script>
+}
+
+<div class="row">
+    <!-- this is just here to approximate a skinny viewport on desktop displays -->
+    <div class="col-sm-offset-3 col-sm-6">
+
+        <form class="form-horizontal" style="margin: 15px 0;">
+            <div class="form-group">
+                <div class="col-xs-8">
+                    <select id="adminPage" class="form-control">
+                        <option value="Players">Agents</option>
+                        <option value="Notifications">Notifications</option>
+                        <option value="Newsfeed">Newsfeed</option>
+                        <option value="Tasks">Tasks</option>
+                        <option value="Teams">Teams</option>
+                        <option value="Items">Items</option>
+                        <option value="Session">Session</option>
+                        <option value="Settings">Settings</option>
+                    </select>
+                </div>
+                <div class="col-xs-2 form-control-static text-center">
+                    <span class="glyphicon glyphicon-refresh" id="refresh" style="cursor:pointer;"></span>
+                </div>
+                <div class="col-xs-2 form-control-static text-center">
+                    <a href="/" class="btn btn-success btn-xs" target="_blank"><span class="glyphicon glyphicon-user"></span></a>
+                </div>
+            </div>
+        </form>
+
+        <div id="pageContent" style="margin-bottom:20px;"></div>
+
+        <hr />
+
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="btn-group btn-group-vertical btn-group-sm ">
+                    <a href="/Central" class="btn btn-default" target="_blank">Central Display</a>
+                    <a href="/Team?team=ccc" class="btn btn-default" target="_blank">CCC Team</a>
+                    <a href="/Team?team=ddd" class="btn btn-default" target="_blank">DDD Team</a>
+                    <a href="/Team?team=eee" class="btn btn-default" target="_blank">EEE Team</a>
+                </div>        
+            </div>
+            <div class="col-xs-6">
+                <div class="btn-group btn-group-vertical btn-group-sm ">
+                    <button class="btn btn-default" id="emptyCache">Empty Cache</button>
+                    <button class="btn btn-danger" id="deleteAllSessions">Delete All Sessions</button>
+                    <a href="/Admin/Logout" class="btn btn-warning">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

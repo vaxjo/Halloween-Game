@@ -1,0 +1,56 @@
+﻿@model Team
+@{ ViewBag.Title = Model.name;
+ ViewBag.BodyStyle = "css-" + Model.id; }
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            new QRCode(document.getElementById("qrcode"), "@Model.JoinUrl");
+            $("#qrcode img").addClass("center-block");
+
+            $('.carousel').carousel();
+
+            var taskUpdater = setInterval(GetStatus, 3000);
+        });
+
+        function GetStatus() {
+            $.get("/Central/GetStatus", function (status) {
+                if (status.state != "@Halloween_Game.Session.CurrentSession.State.ToString()" || status.code != "@Halloween_Game.Session.CurrentSession.Code") window.location = window.location;
+            });
+        }
+    </script>
+}
+
+<style>
+    .history { border: 2px solid #fff; border-radius: 5px; margin: 30px 10px 80px 10px; padding: 15px 0; text-align: left; font-size: 1.4em; }
+        .history .year { font-size: 1.4em; }
+</style>
+
+<div class="text-center" style="color: #fff; margin-top:100px;">
+    <h1 class="font-@Model.id">@Model.name</h1>
+
+    <div id="qrcode" style="margin: 30px 0;"></div>
+
+    <p>
+        @if (Request.IsLocal) {
+            <h3><samp>@Request.Url.Authority@Model.JoinUrl</samp></h3>
+        } else {
+            <h3><samp>@Model.JoinUrl</samp></h3>
+        }
+    </p>
+
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="4500">
+        <div class="carousel-inner" role="listbox">
+            @{ bool active = false; }
+            @foreach (string line in System.IO.File.ReadAllLines(Server.MapPath("/App_Data/" + Model.id + " history.txt"))) {
+                <div class="item @(!active ? "active" : "")">
+                    <div class="row history">
+                        <div class="col-xs-2 @(Model.id == "ddd" ? "font-central" : "font-" + Model.id) year">@line.Split(',')[0]</div>
+                        <div class="col-xs-10">@line.Split(new char[] { ',' }, 2)[1]</div>
+                    </div>
+                </div>
+                active = true;
+            }
+        </div>
+    </div>
+</div>

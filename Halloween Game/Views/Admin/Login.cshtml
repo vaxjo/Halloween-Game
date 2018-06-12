@@ -1,0 +1,29 @@
+﻿@{ ViewBag.Title = "Admin"; }
+
+@section scripts {
+    <script>
+        //$(document).ready(function () {
+        //    $("form button").click(function () { });
+        //});
+
+    </script>
+}
+
+<div class="row">
+    <!-- this is just here to approximate a skinny viewport on desktop displays -->
+    <div class="col-sm-offset-3 col-sm-6">
+
+        <h1>Admin Login</h1>
+        <form class="form-horizontal" method="post" action="@(Request.IsLocal ? "http://"+Request.Url.Authority : "http://game.jarrin.net")/admin/Login" style="margin-top:30px;">
+            <div class="form-group">
+                <div class="col-xs-8">
+                    <input type="password" name="pw" class="form-control" placeholder="password" />
+                </div>
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

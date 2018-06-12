@@ -1,0 +1,13 @@
+﻿@model Player
+@{ Layout = null; }
+
+@foreach (PlayerTask pt in Model.GetTasks) {
+    <div class="row">
+        <div class="col-xs-10">@pt.GetTask.name</div>
+        <div class="col-xs-2"><span class="glyphicon glyphicon-remove text-danger killTask" data-id="@pt.id" style="cursor:pointer;"></span></div>
+    </div>
+}
+
+@if (Model.GetTasks.Count == 0) {
+    <p class="text-muted">No tasks.</p>
+}

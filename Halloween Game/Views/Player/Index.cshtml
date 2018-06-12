@@ -1,0 +1,244 @@
+﻿@{ ViewBag.Title = Player.CurrentPlayer.GetTeam.name + " - " + Player.CurrentPlayer.Name;
+ ViewBag.BodyStyle = "css-" + Player.CurrentPlayer.GetTeam.id;  }
+
+@section scripts {
+    <script>
+        var _taskUpdater;
+        $(document).ready(function () {
+            $("#profile").click(function () { OpenModal("/Player/Modal_Profile"); });
+
+            $("#notifications").on("click", ".notification button", function () {
+                var $note = $(this).closest(".notification");
+                $.post("/Player/NotificationRead?id=" + $note.attr("id"), function () { $note.remove(); });
+            })
+
+            $("#tasks").on("click", ".task", function () { OpenModal("/Player/Modal_Task?playerTaskId=" + $(this).attr("id")); });
+
+            $("#items").on("click", "img", function () {
+                if ($(this).attr("id") == undefined) OpenModal("/Player/Modal_EmptyItem");
+                else OpenModal("/Player/Modal_Item?playerItemId=" + $(this).attr("id"));
+            });
+
+            _taskUpdater = setInterval(GetStatus, 1000);
+            GetStatus();
+
+            setInterval(TaskProgress, 100);
+        });
+
+        // very frequent intervaler used to draw the task progress bar
+        function TaskProgress() {
+            var n = new Date();
+            var now = n.getTime();
+
+            $(".task:visible").each(function () {
+                var duration = $(this).data("duration"); // sec
+                var started = $(this).data("started"); // js time
+                var elapsed = n.getTime() - started; // ms
+                var percent = elapsed / (duration * 10);
+                if (percent > 100) {
+                    percent = 100;
+                    $(this).addClass("expired");
+                    // if this task is open in a modal, expire it and close the modal
+                    if ($(".modal-dialog").attr("id") == $(this).attr("id")) ExpireModalTask();
+                }
+
+                var $progressBar = $(this).find(".progress-bar");
+                if (percent < 75) {
+                    $progressBar.addClass("progress-bar-success");
+                } else if (percent < 90) {
+                    $progressBar.removeClass("progress-bar-success");
+                    $progressBar.addClass("progress-bar-warning");
+                } else {
+                    $progressBar.removeClass("progress-bar-warning");
+                    $progressBar.addClass("progress-bar-danger");
+                }
+                $progressBar.css("width", percent + "%");
+            });
+        }
+
+        function GetStatus() {
+            $.get("/Player/GetCurrentPlayerStatus", function (status) {
+                // sometimes we get out of sync when compiling, the second clause should clear that up
+                if (status.mustReload || status.player.name != $("#playerName").text()) {
+                    clearInterval(_taskUpdater);
+                    window.location = "/";
+                }
+
+                $("pre#status").text(JSON.stringify(status, null, " "));
+
+                $("#playerRole").text(status.player.role);
+
+                // tasks
+                var allTaskIds = [];
+                for (i = 0; i < status.tasks.length; i++) {
+                    allTaskIds.push(parseInt(status.tasks[i].id));
+                    var $task = $("#tasks .task#" + status.tasks[i].id);
+                    if ($task.length == 0) {
+                        //create new one
+                        var newTask = $(".sampleTask").clone().show();
+                        newTask.removeClass("sampleTask");
+                        newTask.attr("id", status.tasks[i].id);
+                        newTask.data("duration", status.tasks[i].duration).data("started", Date.now() - status.tasks[i].startedAgo);
+                        newTask.find("#name").text(status.tasks[i].name);
+                        $("#tasks").append(newTask);
+                    }
+                }
+
+                // remove tasks that have been removed
+                $("#tasks .task").each(function () {
+                    var id = parseInt($(this).attr("id"));
+                    if ($.inArray(id, allTaskIds) < 0) $(this).remove();
+                });
+
+                if (status.tasks.length == 0) $("#notasks").show(); else $("#notasks").hide();
+
+                // notifications
+                var allNotificationIds = [];
+                for (i = 0; i < Math.min(status.notifications.length, 3) ; i++) {
+                    allNotificationIds.push(parseInt(status.notifications[i].id));
+                    var $notification = $("#notifications .notification#" + status.notifications[i].id);
+                    if ($notification.length == 0) {
+                        //create new one
+                        var newnotification = $(".sampleNotification").clone().show();
+                        newnotification.removeClass("sampleNotification");
+                        newnotification.attr("id", status.notifications[i].id);
+                        newnotification.find("p").html(status.notifications[i].message);
+                        $("#notifications").append(newnotification);
+                    }
+                }
+
+                // remove notifications that have been removed
+                $("#notifications .notification").each(function () {
+                    var id = parseInt($(this).attr("id"));
+                    if ($.inArray(id, allNotificationIds) < 0) $(this).remove();
+                });
+
+                // items
+                $("#items tr").empty();
+                var totalItemSize = 0;
+                for (i = 0; i < status.items.length; i++) {
+                    $item = '<td style="width: ' + (status.items[i].size * 25) + '%;"><img id="' + status.items[i].id + '" src="/Content/Items/' + status.items[i].itemId + '.png" title="' + status.items[i].name + '" class="img-responsive "></td>';
+                    $("#items tr").append($item);
+                    totalItemSize += status.items[i].size;
+                }
+                for (i = totalItemSize; i < 4; i++) {
+                    $("#items tr").append('<td style="width: 25%;"><img src="/Content/Items/empty.png" title="Empty Item Slot" class="img-responsive "></td>');
+                }
+            });
+        }
+    </script>
+
+    @if (HGameAuth.IsAuthorized && HGameApp.Settings.DevMode) {
+        <script>
+            $(document).ready(function () {
+                // $("#checkTasks").click(function () { GetStatus(); });
+                $("#stopchecking").click(function () { clearInterval(_taskUpdater); });
+
+                $("#assignTask").change(function () {
+                    $.post("/admin/AssignTask?playerId=@Player.CurrentPlayer.id&id=" + $(this).val(), function () { $("#assignTask").val(""); });
+                });
+
+                $("#assignItem").change(function () {
+                    $.post("/admin/AddItem?playerId=@Player.CurrentPlayer.id&itemId=" + $(this).val(), function () { $("#assignItem").val(""); });
+                });
+
+                $("#switchTeam").change(function () {
+                    $.post("/admin/SwitchTeam?playerId=@Player.CurrentPlayer.id&teamId=" + $(this).val(), function () { window.location = window.location; });
+                });
+            });
+        </script>
+    }
+}
+
+@section topbox {
+    <div class="topbox">
+        <div class="row">
+            <!-- simulate xs in sm format -->
+            <div class="col-sm-offset-3 col-sm-6">
+
+                <div class="row">
+                    <div class="col-xs-3">
+                        <img id="profile" src="@Player.CurrentPlayer.ImageUrl" class="img-responsive img-thumbnail" />
+                    </div>
+                    <div class="col-xs-9">
+                        <h4 id="playerName" style="margin-top:0; margin-bottom:0;">@Player.CurrentPlayer.Name</h4>
+                        @Player.CurrentPlayer.GetTeam.name<br />
+                        <i id="playerRole">@Player.CurrentPlayer.Role</i><br />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row" id="player">
+    <!-- simulate xs in sm format -->
+    <div class="col-xs-12 col-sm-offset-3 col-sm-6">
+
+        <div id="notifications"></div>
+
+        <div id="tasks"></div>
+
+        @if (Halloween_Game.Session.CurrentSession.State != Halloween_Game.Session.SessionState.TimeWarp) {
+            <p id="notasks" style="color:#fff; display:none;">You have no pending assignments. Feel free to use this time to pursue your own personal projects.</p>
+        }
+
+        <div class="well well-sm task sampleTask" style="padding-bottom: 1px; display:none;">
+            <b id="name"></b>
+            <div class="progress" style="margin-bottom: 0; margin-top:6px; height: 3px;">
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <div class="alert alert-warning alert-dismissible notification sampleNotification" role="alert" style="display:none;">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="font-size:30px;"><span aria-hidden="true">&times;</span></button>
+            <p></p>
+        </div>
+
+        <!-- items -->
+        @if (Halloween_Game.Session.CurrentSession.State != Halloween_Game.Session.SessionState.TimeWarp) {
+            <div id="items"><table><tbody><tr></tr></tbody></table></div>
+        }
+
+        @if (HGameAuth.IsAuthorized && HGameApp.Settings.DevMode) {
+            <hr />
+            <p>
+                <select id="assignTask" class="form-control">
+                    <option value="">Assign yourself a task...</option>
+                    @foreach (var item in Task.GetAll().OrderBy(o => o.name)) {
+                        <option value="@item.id">@item.name</option>
+                    }
+                </select>
+            </p>
+
+            <p>
+                <select id="assignItem" class="form-control">
+                    <option value="">Give yourself an item...</option>
+                    @foreach (short size in Item.GetAll().Select(o => o.size).Distinct().OrderBy(o => o)) {
+                        <optgroup label="@size-slot">
+                            @foreach (var item in Item.GetAll().Where(o => o.size == size).OrderBy(o => o.name)) {
+                                <option value="@item.id">@item.name</option>
+                            }
+                        </optgroup>
+                    }
+                </select>
+            </p>
+
+            <p>
+                <select id="switchTeam" class="form-control">
+                    <option value="">Switch team...</option>
+                    @foreach (var team in Team.GetAll().OrderBy(o => o.name)) {
+                        <option value="@team.id">@team.name</option>
+                    }
+                </select>
+            </p>
+
+            <p> <button id="stopchecking" type="button" class="btn btn-warning btn-xs">Stop Checking</button></p>
+            if (Request.IsLocal) {
+                <!-- raw status json -->
+                <pre id="status"></pre>
+            }
+        }
+    </div>
+</div>

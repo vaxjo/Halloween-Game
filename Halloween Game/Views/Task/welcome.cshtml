@@ -1,0 +1,76 @@
+﻿@model PlayerTask
+@{ Layout = null; }
+
+<script>
+    $(document).ready(function () {
+        $(".modal #accept").click(function () {
+            $(".modal form").hide();
+
+            if ($(".modal input[type=checkbox]:checked").length < 4) {
+                ShowIncorrectMessage("Must Check All Boxes", function () { $(".modal form").show(); });
+
+            } else {
+                $.post("/Task/Update?playerTaskId=@Model.id");
+                ShowCorrect(function () { HideModal(); });
+            }
+        });
+
+        $(".modal #decline").click(function () {
+            $(".modal form").hide();
+            ShowIncorrectMessage("Declination Denied", function () { $(".modal form").show(); });
+        });
+    });
+</script>
+
+<div class="toggle">
+
+    <p>Welcome to the <b>@Model.GetPlayer.GetTeam.name</b> team, agent <b>@Model.GetPlayer.Name</b>.</p>
+
+    <p>This is your first assignment. If you complete it successfully, you will be given more. As you complete these tasks your role in our organization will grow, as will the company's overall status and power.</p>
+
+    <form class="form-horizontal">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <label>
+                    <input type="checkbox" />
+                    I acknowledge that my employment with <b>@Model.GetPlayer.GetTeam.name</b> is "voluntary" and that I can be terminated at any time.
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-12">
+                <label>
+                    <input type="checkbox" />
+                    I acknowledge that "termination", in this sense, actually involves molecular disintegration.
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-12">
+                <label>
+                    <input type="checkbox" />
+                    I acknowledge that "molecular disintegration" is a short but painful procedure for which there is no appeal process.
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-12">
+                <label>
+                    <input type="checkbox" />
+                    I acknowledge that my "voluntary" employment with <b>@Model.GetPlayer.GetTeam.name</b> is actually compulsory and extremely life threatening.
+                </label>
+            </div>
+        </div>
+
+
+        <p>To finalize your employment, check each predceeding checkbox to demonstrate your allegiance, and click "Accept" below.</p>
+
+        <p class="text-center">
+            <button id="accept" type="button" class="btn btn-primary">Accept</button>
+            <button id="decline" type="button" class="btn btn-danger">Decline</button>
+        </p>
+    </form>
+</div>

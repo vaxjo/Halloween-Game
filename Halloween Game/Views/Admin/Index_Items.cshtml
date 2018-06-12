@@ -1,0 +1,21 @@
+﻿@{Layout = null;}
+
+<script>
+    $(document).ready(function () {
+        $("ol button").click(function () { OpenModal("/admin/Modal_Item?id=" + $(this).data("id")); });
+
+        $("#newItem").click(function () { OpenModal("/admin/Modal_Item"); });
+    });
+</script>
+
+<ol class="list-unstyled">
+    @foreach (var item in Item.GetAll().OrderBy(o => o.size).ThenBy(o => o.name)) {
+        <li><button type="button" class="btn btn-link" data-id="@item.id">[@item.size] @item.name (@item.id)</button></li>
+    }
+</ol>
+
+@if (Item.GetAll().Count == 0) {
+    <p class="text-muted">No items.</p>
+}
+
+<button type="button" class="btn btn-link" id="newItem"><span class="glyphicon glyphicon-plus"></span> New Item</button>

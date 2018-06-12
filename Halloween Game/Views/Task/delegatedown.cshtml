@@ -1,0 +1,59 @@
+﻿@model PlayerTask
+@{ Layout = null;
+ bool isLowestRanked = (Player.CurrentPlayer.GetTeam.GetPlayers.Min(o => o.rank) == Player.CurrentPlayer.rank);   }
+
+<script>
+    var playerTaskId = @(Model.id);
+    var rank = @(Model.GetPlayer.rank);
+
+    $(document).ready(function () {
+        $(".modal #enter").click(function () {
+            $(".modal form").hide();
+
+            $.get("/Player/GetPlayerStatus?agentCode=" + $(".modal #data").val(), function (data) {
+                if (data.id == "00000000-0000-0000-0000-000000000000") {
+                    ShowIncorrect(function () { $(".modal form").show(); });
+
+                } else if (data.rank > rank) {
+                    ShowIncorrectMessage(data.name + " is not of a lower rank", function () { $(".modal form").show(); });
+
+                } else {
+                    $.post("/Task/Update?playerTaskId=" + playerTaskId, { data: $(".modal #data").val() });
+                    ShowCorrect(function () { HideModal(); });
+                }
+            });
+        });
+
+        $(".modal #perform").click(function () {
+            $(".modal form").hide();
+
+            $.post("/Task/Update?playerTaskId=" + playerTaskId);
+            ShowCorrect(function () { HideModal(); });
+        });
+    });
+</script>
+
+@if (isLowestRanked) {
+    <p>As the lowest-ranked agent of the <b>@Model.GetPlayer.GetTeam.name</b> it is your unfortunate responsibility to perform this undesireable assignment.</p>
+
+    <form class="">
+        <p class="text-center"><button type="button" class="btn btn-success " id="perform">Perform the Assignment</button></p>
+    </form>
+
+} else {
+    <p>
+        This assignment is so undesireable that you refuse to do it yourself.
+        Find any lower-ranked agent on your team and re-assign this task to them. Enter their secret agent code below to show that they've accepted it.
+    </p>
+
+    <form class="">
+        <div class="form-group">
+            <input type="number" id="data" class="form-control input-lg" placeholder="Agent Code" />
+        </div>
+        <div class="form-group">
+            <button id="enter" type="button" class="btn btn-primary btn-lg">Enter</button>
+        </div>
+
+        <p class="text-muted">Failure to transfer this task to the bottom of the company will result in penalties for all low-ranked agents.</p>
+    </form>
+}

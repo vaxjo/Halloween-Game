@@ -1,0 +1,30 @@
+﻿@font-face { font-family: "TrajanPro-Regular"; src: url("/Content/fonts/TrajanPro-Regular.otf"); }
+@font-face { font-family: "aliens and cows"; src: url("/Content/fonts/aliens and cows_trial.ttf"); }
+@font-face { font-family: "JLSDataGothicR_NC"; src: url("/Content/fonts/JLSDataGothicR_NC.otf") format("opentype"); }
+@font-face { font-family: "Neoterique"; src: url("/Content/fonts/Neoterique.ttf"); }
+
+.font-central { font-family: "TrajanPro-Regular"; }
+.font-ccc { font-family: "Neoterique"; font-size: 30px; letter-spacing: 2px; }
+.font-ddd { font-family: "aliens and cows"; font-size: 36px; letter-spacing: 1px; }
+.font-eee { font-family: "JLSDataGothicR_NC"; font-size: 28px; letter-spacing: 2px; }
+
+.b { font-weight: bold; }
+.strike { text-decoration: line-through; }
+
+.topbox { background-color: #fff; border-bottom: solid 1px #000; padding: 10px 15px; margin-bottom: 10px; }
+
+.css-ccc { background-color: #f00; }
+	.css-ccc .progress-bar-team { background-color: #f88; }
+.css-ddd { background-color: #00f; }
+	.css-ddd .progress-bar-team { background-color: #88f; }
+.css-eee { background-color: #0a0; }
+	.css-eee .progress-bar-team { background-color: #8f8; }
+
+.central { background-color: #333; color: #eee; }
+
+/*.task.expired { background-color: #fbb; border: solid 1px #800; }*/
+
+#player #items { margin-top: 20px; position: fixed; bottom: 0; left: 0; right: 0; padding: 10px 5px;  border-top: 1px solid #fff; }
+.css-ccc #player #items{ background-color: #f00; }
+.css-ddd #player #items{ background-color: #00f; }
+.css-eee #player #items{ background-color: #0a0; }

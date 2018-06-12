@@ -1,0 +1,21 @@
+﻿@model Team
+@{ ViewBag.Title = "Rebooting Universe";
+   ViewBag.BodyStyle = "central"; }
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            var taskUpdater = setInterval(GetStatus, 3000);
+        });
+
+        function GetStatus() {
+            $.get("/Central/GetStatus", function (status) {
+                if (status.state != "@Halloween_Game.Session.CurrentSession.State.ToString()" || status.code != "@Halloween_Game.Session.CurrentSession.Code") window.location = window.location;
+            });
+        }
+    </script>
+}
+
+<div style="margin-top:200px;" class="text-center">
+    <h1><span class="glyphicon glyphicon-hourglass"></span></h1>
+</div>

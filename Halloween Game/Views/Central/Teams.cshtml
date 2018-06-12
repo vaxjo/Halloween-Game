@@ -1,0 +1,30 @@
+﻿@{ Layout = null; }
+
+@if (Halloween_Game.Session.CurrentSession.State == Halloween_Game.Session.SessionState.Reset) {
+    <script>
+        // clear page, display reset
+        $("#normal").hide();
+        $("#reset").show();
+    </script>
+} else {
+    <script>
+        // back to normal
+        $("#normal").show();
+        $("#reset").hide();
+    </script>
+}
+
+@foreach (Team team in Team.GetAll()) {
+    int b = team.score - team.TechLevel * HGameApp.Settings.TechRate;
+    int progress = 100 * b / HGameApp.Settings.TechRate;
+
+    <div class="css-@team.id" style="padding: 20px; margin-bottom: 20px; ">
+        <h1 class="font-@team.id" style="margin-top: 0; color: #fff; ">@team.name</h1>
+
+        <div class="progress">
+            <div class="progress-bar progress-bar-team " role="progressbar" style="width: @progress%;"></div>
+        </div>
+
+        <h3 class="font-central">Current Tech Level - <span style="font-size: 1.15em; font-weight:bold;">@team.TechLevelLetter</span></h3>
+    </div>
+}

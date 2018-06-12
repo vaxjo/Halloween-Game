@@ -1,0 +1,26 @@
+﻿@model PlayerTask
+@{ Layout = null; }
+
+<script>
+    var playerTaskId = @(Model.id);
+
+    $(document).ready(function () {
+        $(".modal #button").click(function () {
+            $(".modal img").hide();
+            $.post("/Task/Update?playerTaskId=" + playerTaskId);
+            ShowCorrect(function () { HideModal(); });
+        });
+    });
+</script>
+
+<p>
+    A strange man brings you a mysterious box. Inside you find a single, unlabeled button.
+    The man explains that if you choose to press the button two things will happen: you will receive a random item and someone whom you don't know will die.
+</p>
+
+<div class="row">
+    <div class="col-xs-offset-3 col-xs-6">
+        <img src="~/Content/Tasks/buttonunit/button.png" id="button" class="img-responsive center-block" />
+    </div>
+</div>
+

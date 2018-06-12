@@ -1,0 +1,15 @@
+﻿@model Team
+@{ ViewBag.Title = "Rebooting Universe";
+ ViewBag.BodyStyle = "central"; }
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () { window.location = window.location; }, 1000);
+        });
+    </script>
+}
+
+<div style="margin-top:200px;" class="text-center">
+    <h1><span class="glyphicon glyphicon-hourglass"></span></h1>
+</div>

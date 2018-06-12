@@ -1,0 +1,22 @@
+﻿@{Layout = null;}
+
+<script>
+    $(document).ready(function () {
+        $("ol button").click(function () { OpenModal("/admin/Modal_Newsfeed_View?id=" + $(this).data("id")); });
+
+        $("#newNewsfeed").click(function () { OpenModal("/admin/Modal_Newsfeed_Add"); });
+    });
+
+</script>
+
+<ol class="list-unstyled">
+    @foreach (var item in Newsfeed.GetAll().OrderByDescending(o => o.created)) {
+        <li><button type="button" class="btn btn-link" data-id="@item.id">@item.created.ToShortTimeString() - @(item.body.PadRight(30, ' ').Substring(0, 30).Trim())</button></li>
+    }
+</ol>
+
+@if (Newsfeed.GetAll().Count == 0) {
+    <p class="text-muted">No Newsfeed.</p>
+}
+
+<button type="button" class="btn btn-link" id="newNewsfeed"><span class="glyphicon glyphicon-plus"></span> New Newsfeed Item</button>
