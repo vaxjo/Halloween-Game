@@ -11,9 +11,7 @@ namespace Halloween_Game {
 
 		public Player_JSON GetJSON { get { return new Player_JSON() { id = id, name = Name, role = Role, team = GetTeam.GetJSON }; } }
 
-		// public string ImageUrl { get { return "https://robohash.org/" + id + "?set=set2"; } }
-		// public string ImageUrl { get { return "/Player/Image?id=" + id; } }
-		public string ImageUrl { get { return "http://miner.jarrin.net/?" + id; } }
+		public string ImageUrl { get { return "http://miner.jarrin.net/?batch=FluxCorp&" + id; } }
 
 		public string Name {
 			get {
