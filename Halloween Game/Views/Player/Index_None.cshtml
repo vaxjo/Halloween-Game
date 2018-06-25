@@ -1,10 +1,9 @@
 ﻿@{ ViewBag.Title = "Off-World Mining";
- ViewBag.BodyStyle = "central"; }
+    ViewBag.BodyStyle = "central"; }
 
 @section scripts {
     <script>
         $(document).ready(function () {
-            $('#aboutmodal').modal();
             setInterval(GetStatus, 3000);
         });
 
@@ -28,39 +27,41 @@
         Visit one of the several recruitment stations conveniently located in your local system.
     </p>
 
-    <h4 class="font-central "><i>Your participation is mandatory!</i></h4>
-</div>
+    <hr />
+    <p class="lead">
+        Already chosen your faction?<br />
+        Enter the four-digit sign-up code here to get started!
+    </p>
 
-<div class="row" style="margin-top: 30px;">
-    @foreach (Team team in Team.GetAll()) {
-        <div class="col-xs-4">
-            @*@if (Request.IsLocal) {
-                    <a href="@team.JoinUrl"><img src="~/Content/logo bw @(team.id).png" class="img-responsive" /></a>
-                } else {
-                    <img src="~/Content/logo bw @(team.id).png" class="img-responsive" />
-                }*@
-            <a href="@team.JoinUrl"><img src="~/Content/logo bw @(team.id).png" class="img-responsive" /></a>
+    <form method="post" action="/Team/Confirm" class="form-horizontal">
+        <div class="form-group">
+            <div class="col-xs-offset-2  col-xs-4">
+                <input type="number" name="teamCode" class="form-control" />
+            </div>
+            <div class="col-xs-4">
+                <button type="submit" class="btn btn-success" value="">Join Now</button>
+            </div>
+        </div>
+    </form>
+
+    @if (Request["error"] == "badcode") {
+        <div class="alert alert-danger">
+            <b>Application Denied</b><br />
+            Verify your faction's four-digit join code and try again.
         </div>
     }
 </div>
 
-<div id="aboutmodal" class="modal" tabindex="-1" role="dialog" data-show="true" style="color:#333;">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Power/Money/Science</h4>
-            </div>
-            <div class="modal-body">
-                <p>This is the website for the interactive, multi-player puzzle game that I built for my 2017 Halloween party. The party is over, but the software remains.</p>
-                <p>If you'd like to simulate the game-play experience you will need to load the Central Display into a browser tab and leave it running while you create your own player character (by clicking one of the three company logos at the bottom of this page).</p>
-                <p><a href="/Central" class=" btn btn-primary" target="_blank">Central Display</a></p>
-                <p>This game was designed to be played by a large group of people in the same physical area. Your experience may vary.</p>
-            </div>
-
-                @*<div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="dropItem"><span class="glyphicon glyphicon-wrench"></span> Drop Item</button>
-                </div>*@
+<hr />
+@* TODO: replace logos with fluxcorp logos *@
+<div class="row" style="margin: 30px 0;">
+    @foreach (Team team in Team.GetAll()) {
+        <div class="col-xs-4">
+            <img src="~/Content/logo bw @(team.id).png" class="img-responsive" />
         </div>
-    </div>
+    }
+</div>
+
+<div class="text-center">
+    <h4 class="font-central "><i>Your participation is mandatory!</i></h4>
 </div>

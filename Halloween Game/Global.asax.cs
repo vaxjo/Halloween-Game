@@ -44,7 +44,7 @@ namespace Halloween_Game {
 		}
 
 		protected void Session_End(Object sender, EventArgs E) {
-			// we don't have httpcontext here must less request cookies
+			// we don't have httpcontext here much less request cookies
 			//Player.CurrentPlayer.idle = true;
 			//Player.CurrentPlayer.Save();
 		}

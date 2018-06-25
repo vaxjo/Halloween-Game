@@ -14,7 +14,7 @@
     <div class="col-sm-offset-3 col-sm-6">
 
         <h1>Admin Login</h1>
-        <form class="form-horizontal" method="post" action="@(Request.IsLocal ? "http://"+Request.Url.Authority : "http://game.jarrin.net")/admin/Login" style="margin-top:30px;">
+        <form class="form-horizontal" method="post" action="/admin/Login" style="margin-top:30px;">
             <div class="form-group">
                 <div class="col-xs-8">
                     <input type="password" name="pw" class="form-control" placeholder="password" />
@@ -24,6 +24,10 @@
                 </div>
             </div>
         </form>
+
+        @if (ViewBag.Error != null) {
+            <div class="alert alert-danger">Nope.</div>
+        }
 
     </div>
 </div>

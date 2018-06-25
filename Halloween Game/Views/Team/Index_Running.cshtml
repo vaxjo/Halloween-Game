@@ -1,13 +1,12 @@
 ﻿@model Team
 @{ ViewBag.Title = Model.name;
- ViewBag.BodyStyle = "css-" + Model.id; }
+    ViewBag.BodyStyle = "css-" + Model.id; }
+
+@* this is the kiosk page *@
 
 @section scripts {
     <script>
         $(document).ready(function () {
-            new QRCode(document.getElementById("qrcode"), "@Model.JoinUrl");
-            $("#qrcode img").addClass("center-block");
-
             $('.carousel').carousel();
 
             var taskUpdater = setInterval(GetStatus, 3000);
@@ -29,15 +28,11 @@
 <div class="text-center" style="color: #fff; margin-top:100px;">
     <h1 class="font-@Model.id">@Model.name</h1>
 
-    <div id="qrcode" style="margin: 30px 0;"></div>
+    <p>To join this faction, enter this url in your mobile device's browser and then enter the four-character code below.</p>
 
-    <p>
-        @if (Request.IsLocal) {
-            <h3><samp>@Request.Url.Authority@Model.JoinUrl</samp></h3>
-        } else {
-            <h3><samp>@Model.JoinUrl</samp></h3>
-        }
-    </p>
+    <h3>http://@(Request.Url.Authority)/</h3>
+
+    <h2><code>@Model.JoinCode</code></h2>
 
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="4500">
         <div class="carousel-inner" role="listbox">
@@ -54,3 +49,4 @@
         </div>
     </div>
 </div>
+

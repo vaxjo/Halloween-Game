@@ -19,6 +19,7 @@ namespace Halloween_Game.Controllers {
 			return View();
 		}
 
+        /* flux corp skips this and goes directly to the player page
 		// the actual route for this is /Join/{session}
 		public ActionResult Join(string session, string team) {
 			if (Player.CurrentPlayer != null) return Redirect("/");
@@ -31,17 +32,28 @@ namespace Halloween_Game.Controllers {
 			return View(Team.Load(team));
 		}
 
-		public ActionResult Confirm(string session, string team) {
-			if (Player.CurrentPlayer != null) return Redirect("/");
+        public ActionResult Confirm(string session, string team) {
+            if (Player.CurrentPlayer != null) return Redirect("/");
 
-			if (session.ToLower() != Halloween_Game.Session.CurrentSession.Code.ToLower()) return Redirect("/");  // session code is wrong
+            if (session.ToLower() != Halloween_Game.Session.CurrentSession.Code.ToLower()) return Redirect("/");  // session code is wrong
 
-			Session["hgamePlayerId"] = Player.Create(Team.Load(team)).id;
+            Session["hgamePlayerId"] = Player.Create(Team.Load(team)).id;
 
-			return Redirect("/");
-		}
+            return Redirect("/");
+        } */
 
-		private string GetTeamFromHostname() {
+        public ActionResult Confirm(string teamCode) {
+            if (Player.CurrentPlayer != null) return Redirect("/");
+
+            Team team = Team.GetAll().SingleOrDefault(o => o.JoinCode == teamCode);
+            if (team == null) return Redirect("/?error=badcode");  // session code is wrong
+
+            Session["hgamePlayerId"] = Player.Create(team).id;
+
+            return Redirect("/");
+        }
+
+        private string GetTeamFromHostname() {
 			return Request.Url.Host.Split('.')[0]; // "ccc.jarrin.net"
 		}
 	}
