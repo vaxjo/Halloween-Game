@@ -1,0 +1,9 @@
+﻿1950,Vincenzo Borromeo, inspired by reports of the Roswell incident, founds the secretive family business that later becomes Aerospace Enterprises.
+2150,AE holds the majority of space related technologies, patents, and engineers. Funded via CIA special projects budgets, AE forms a sister company dedicated to planetary terraforming.
+2215,Earth's Plutocratic Congress commissions AE to develop many of its patents to functional prototypes, dawning a new age of space exploration.
+2275,First Contact with Alpha Centauri delegation made by Aurora Borromeo. AE immediately moves to enable extensive FTL trade with neighboring systems.
+2570,As the dominant economic force in its galactic locus, the AE Mercantile Federation legally restructures as a galactic cultural complex known as the Borromean Cooperative.
+3280,The Cooperative, now a cultural complex spanning thousands of worlds, funnels all its research budget into the creation of the collosal hyperdrives known as Borromean Movers.
+3548,The Cooperative, now the fastest growing culture complex in the galaxy, extends its charter to reach all civilizations and becomes The Borromean Expanse. Earth time becomes the defacto time scale for galactic trade (GCE).
+3868,By exploiting its advanced hyperdrive and logistics tech, the Expanse quickly swells to 10% of the galactic volume with a minimum of military conflict. 
+4202,The Borromean Expanse has spread its operations across the breadth of the Milky Way, making it the largest organizational structure in known history. The Expanse immediately sets its sights on crossing the intergalactic void. 

@@ -53,7 +53,9 @@ namespace Halloween_Game.Controllers {
             return Redirect("/");
         }
 
+        [Obsolete]
         private string GetTeamFromHostname() {
+            throw new Exception("Obsolete: GetTeamFromHostname() in TeamController");
 			return Request.Url.Host.Split('.')[0]; // "ccc.jarrin.net"
 		}
 	}

@@ -10,7 +10,7 @@ namespace Halloween_Game {
 
         protected string _warehouseKey { get { return "item warehouse " + id; } }
 
-        public string JoinCode => Math.Abs((Session.CurrentSession.Code + id.ToString()).GetHashCode()).ToString().PadRight(5, '0').Substring(1, 4);
+        public string JoinCode => GetJoinCode();
 
         public Team_JSON GetJSON { get { return new Team_JSON() { id = id, name = name }; } }
 
@@ -20,6 +20,11 @@ namespace Halloween_Game {
 
         /// <summary> All non-idle players on this team. </summary>
         public List<Player> GetPlayers { get { return Player.GetAll().Where(o => o.teamId == id && !o.idle).ToList(); } }
+
+        public string GetJoinCode(string sessionCode = null) {
+            Random r = new Random(((sessionCode ?? Session.CurrentSession.Code) + id.ToString()).GetHashCode());
+            return r.Next(1000, 10000).ToString();
+        }
 
         /// <summary> Add an item to this team's warehouse. </summary>
         public void WarehouseAddItem(string itemId) {
@@ -72,7 +77,7 @@ namespace Halloween_Game {
             team.name = name;
             team.score = score;
             team.description = description;
-            team.goal = goal;
+            team.goal = goal ?? "";
             dc.SubmitChanges();
 
             Myriads.Cache.Remove("Team");

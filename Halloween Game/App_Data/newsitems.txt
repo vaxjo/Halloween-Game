@@ -1,6 +1,6 @@
 ﻿info	Stock prices plummet like a Class-9 gravity well.
 info	Politics keep happening. Protestors unable to stop it.
-info	Last night's space score: 12-764.
+info	Last night's Space Score: 12-764.
 info	Entire entertainment industry fails to receive a single award at last night's Gremmys.
 info	OBEY
 info	Today's lottery results: 4
@@ -8,30 +8,33 @@ info	Today's lottery results: 4
 # https://www.c64-wiki.com/wiki/M.U.L.E.#Random_Events
 
 info	Several simultaneous system-wide planetquakes cause mass chaos. Commodity trading is unaffected.
-info	Unusual sunspot activity detected.
-info	Space pirate menace increasing. Earth Plutocratic Congress reportedly doing nothing.
+info	Unusual sunspot activity on Zeta Centauri D detected.
+info	Canopy Growth Corp shares plunge 12%.
 
 # from ian
 
-info	FIRE SALE! Prenatal Battery Fluid Containers. 15% off discount with purchase of six or more amniocentesis-es.
-info	Terrestrial cheese prices soar after Moon is befouled by botulism.
-info	Thoughts and Prayers cease flooding on Titan.
-info	"Intergalactic" by the Beastie Boys is forever banned in Milky Way by order of EPC.
-info	"Martian Like Me" to be turned into four part mini-series on MET network.
-info	NewsFeed brought to you by a generous grant from #RomulanLivesMatter.
-info	Whether the weather withers or wears we will weather whichever, who cares.
-info	GAMMA RAY ACCIDENT: Revved up like a deuce, Manfred Mann is blinded by the light.
-info	Medical News: Heartburn cured with death.
+info	BlackBerry 532: Why you won't need an AI Assistant in 4553. Details at 11.
+info	Oumuamua Space Collider tested. Overwhelming success leads to further tests.
+info	Biggest harvest of rutabega yet on Enceladus. Farmers are distraught.
+info	Customers who ate at Glymoxsilant 4 should receive a preenomer vaccination immediately.
+info	SVIEEEmong and Bifor76 settle epic patent infringement battle.
+info	LO4F QUEST is now available on AI900 and iOS896.
+info	MABEL3000 free agency rumor: Potential top free agent 'hesitant' to be first QB star to join Cybershocks
+info	Planters is selling Cheez Balls for the first time in several millenium, delivering the food-like product to customers across the galaxy in aerodynamic tubes with retro branding!
+info	Click here for one weird secret to the smoothest most oily tentacles!
 info	Summit on synergy engineering delayed due to silicon storm.
-info	Statue to 21st century Despot 45 removed from EPC grounds. EPC minority leader worries that Earth will forget its history.
-info	Old Man shakes fist at cloud.
-info	Health News: Removing fingers from nostrils allows for easier breathing.
-info	Holiday News: None. Get back to work.
-info	Food News: "If you can swallow it, it's technically food." - Some Man
-info	Music News: 4,765th wave of Ska Fest attended by record-breaking crowd of 13. (1 live man, 1 deceased woman, 11 cats in two-tone rude boy outfits.)
-info	Intergalactic NewsFeed – "It's good enough for your ilk!"(TM)
+info	Apply now to join the INTERSTELLAR CROSSGUARD!
+info	Old Man shakes fist at Magellanic Cloud.
+info	This week's hottest look - is your face too face-like? Get rid it quick with this simple hack!
+info	Lexus recalls 121,000 ships to fix fuel leaks that can cause plasmatic sinkholes.
+info	Nearly 938GG Credits Stolen from Q9348A Accounts During Security Breach.
+info	Magnetic Rays from YOUR Intercranial Device Could Be Giving You Flatulence! Brought to you by the tinfoil tiaras for a safer satellite association.
+info	Glitter pollution from Saturn12 has been proven to make infected children happier!
 info	Imaginary Numbers and Integers proven real. Just trust us ok, we know.
-info	The Winston Warp One Hundred race wows millions for light years at Talledaga intergalactic speedway.
-info	Hot dogs recognized as official food of Earth by EPC.
+info	The Minion of One Million Eyes entered the system at 00:30:103A and is expected to cause heavy property damage throughout the area.
+info	How Algae Blocks are Altering your Mind - An Insider View.
 info	35W construction officially longest terrestrial project in Earth's history.
-info	Health News: Loving a person a bushel and a peck leads to scabies and Hep-C.
+info	GLORBULON suggests that Jah-ren may only have ten toes, causing a media uproar. Jah-ren refuses to produce documentation on their phalangal count.
+info	Lady Grah-grah releases new single. It is very odd. Everyone loves it, but makes fun of the outfits.
+info	FASTEST ELEVATOR TO HARQUON3: Book Now! *Reservations closed for the next 30 Years Sol.
+info	Emperor Bah-GRFFFF shaves, discovers it is a hive mind of beard length organisms.

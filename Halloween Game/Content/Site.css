@@ -3,10 +3,27 @@
 @font-face { font-family: "JLSDataGothicR_NC"; src: url("/Content/fonts/JLSDataGothicR_NC.otf") format("opentype"); }
 @font-face { font-family: "Neoterique"; src: url("/Content/fonts/Neoterique.ttf"); }
 
+/*@font-face { font-family: "Nova Square", cursive; src: url("https://fonts.googleapis.com/css?family=Nova+Square"); }
+@font-face { font-family: "Faster One", cursive; src: url("https://fonts.googleapis.com/css?family=Faster+One"); }
+@font-face { font-family: "Audiowide", cursive; src: url("https://fonts.googleapis.com/css?family=Audiowide"); }*/
+
+/* latin */
+@font-face { font-family: 'Nova Square'; font-style: normal; font-weight: 400; src: local('Nova Square'), local('NovaSquare'), url(https://fonts.gstatic.com/s/novasquare/v9/RrQUbo9-9DV7b06QHgSWsahHT4I.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+/* latin */
+@font-face { font-family: 'Faster One'; font-style: normal; font-weight: 400; src: local('Faster One'), local('FasterOne-Regular'), url(https://fonts.gstatic.com/s/fasterone/v8/H4ciBXCHmdfClFb-vWhf-LyYhw.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+/* latin-ext */
+@font-face { font-family: 'Audiowide'; font-style: normal; font-weight: 400; src: local('Audiowide Regular'), local('Audiowide-Regular'), url(https://fonts.gstatic.com/s/audiowide/v6/l7gdbjpo0cum0ckerWCdmA_OIxo.woff2) format('woff2'); unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* latin */
+@font-face { font-family: 'Audiowide'; font-style: normal; font-weight: 400; src: local('Audiowide Regular'), local('Audiowide-Regular'), url(https://fonts.gstatic.com/s/audiowide/v6/l7gdbjpo0cum0ckerWCdlg_O.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
 .font-central { font-family: "TrajanPro-Regular"; }
 .font-ccc { font-family: "Neoterique"; font-size: 30px; letter-spacing: 2px; }
 .font-ddd { font-family: "aliens and cows"; font-size: 36px; letter-spacing: 1px; }
 .font-eee { font-family: "JLSDataGothicR_NC"; font-size: 28px; letter-spacing: 2px; }
+
+.font-be { font-family: "Audiowide"; font-size: 30px; letter-spacing: 2px; }
+.font-pn { font-family: "Nova Square"; text-transform: uppercase; font-size: 30px; letter-spacing: 2px; }
+.font-sd { font-family: "Faster One"; font-size: 32px; letter-spacing: 2px; }
 
 .b { font-weight: bold; }
 .strike { text-decoration: line-through; }
@@ -14,17 +31,28 @@
 .topbox { background-color: #fff; border-bottom: solid 1px #000; padding: 10px 15px; margin-bottom: 10px; }
 
 .css-ccc { background-color: #f00; }
-	.css-ccc .progress-bar-team { background-color: #f88; }
+    .css-ccc .progress-bar-team { background-color: #f88; }
 .css-ddd { background-color: #00f; }
-	.css-ddd .progress-bar-team { background-color: #88f; }
+    .css-ddd .progress-bar-team { background-color: #88f; }
 .css-eee { background-color: #0a0; }
-	.css-eee .progress-bar-team { background-color: #8f8; }
+    .css-eee .progress-bar-team { background-color: #8f8; }
+
+.css-pn { background-color: #f00; }
+    .css-pn .progress-bar-team { background-color: #f88; }
+.css-sd { background-color: #00f; }
+    .css-sd .progress-bar-team { background-color: #88f; }
+.css-be { background-color: #0a0; }
+    .css-be .progress-bar-team { background-color: #8f8; }
 
 .central { background-color: #333; color: #eee; }
 
 /*.task.expired { background-color: #fbb; border: solid 1px #800; }*/
 
-#player #items { margin-top: 20px; position: fixed; bottom: 0; left: 0; right: 0; padding: 10px 5px;  border-top: 1px solid #fff; }
-.css-ccc #player #items{ background-color: #f00; }
-.css-ddd #player #items{ background-color: #00f; }
-.css-eee #player #items{ background-color: #0a0; }
+#player #items { margin-top: 20px; position: fixed; bottom: 0; left: 0; right: 0; padding: 10px 5px; border-top: 1px solid #fff; }
+.css-ccc #player #items { background-color: #f00; }
+.css-ddd #player #items { background-color: #00f; }
+.css-eee #player #items { background-color: #0a0; }
+
+.css-be #player #items { background-color: #0a0; }
+.css-pn #player #items { background-color: #f00; }
+.css-sd #player #items { background-color: #00f; }

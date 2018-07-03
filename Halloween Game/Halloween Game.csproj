@@ -179,11 +179,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\sd history.txt" />
+    <Content Include="App_Data\pn history.txt" />
+    <Content Include="App_Data\be history.txt" />
     <Content Include="App_Data\ddd history.txt" />
     <Content Include="App_Data\eee history.txt" />
     <Content Include="App_Data\ccc history.txt" />
     <Content Include="App_Data\newsitems.txt" />
     <Content Include="App_Data\trivia.txt" />
+    <Content Include="Content\logo bw be.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -209,6 +213,8 @@
     <Content Include="Content\logo bw ccc.png" />
     <Content Include="Content\logo bw ddd.png" />
     <Content Include="Content\logo bw eee.png" />
+    <Content Include="Content\logo bw pn.png" />
+    <Content Include="Content\logo bw sd.png" />
     <Content Include="Content\Tasks\buttonunit\button.png" />
     <Content Include="Content\Tasks\hatch\hatch1.png" />
     <Content Include="Content\Tasks\hatch\hatch2.png" />

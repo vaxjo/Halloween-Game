@@ -1,23 +1,24 @@
-﻿ccc,1920, Tschjohnnniey O'Dangussiey began laboring in mines in Logan County, WV, USA, Earth.
-ccc,1942, the Blair-Krupp Huettenzechen (BKH) was formed.
-ccc,2045, Blair-Krupp Huettenzechen (BKH) became the sole purveyour of geological commodities.
-ccc,2094, the Celestial Colony Corporation was born.
-ccc,2102, Vice-royauté de la Nouvelle-Blair was finally settled.
-ccc,2112, Earth's Plutocratic Congress failed to ressurrect legendary prog-rock band RUSH.
-ccc,2265, the CCC's settlements extended beyond the Sol solar system.
+﻿be,1950, Vincenzo Borromeo founded Aerospace Enterprises.
+be,2570, the AE Mercantile Federation restructured as a galactic cultural complex.
+be,2275, Aurora Borromeo made First Contact with an alien civilization.
+be,3548, the Borromean Expanse expanded its charter to all civilizations.
+be,3868, the Borromean Expanse reached 10% of the galactic volume.
+be,3280, the Borromean Expanse developed a new form of hyperdrive.
+be,4202, the Borromean Expanse became the largest cultural complex in galactic history.
 
-ddd,1952, Lord Heinrich (Heine) Hennessey Von Turnbuckle auf Liebenssteckle was born.
-ddd,1981, Von Turnbuckle auf Liebenssteckle chartered a five year expedition to the Antarctic.
-ddd,2022, Von Turnbuckle auf Liebenssteckle started The Church of Discovery.
-ddd,2044, Space Spuds was acquired by The Church of Discovery.
-ddd,2075, The Church of Discovery became Discovery Diggers & Distributors.
-ddd,2175, DDD began to make headway in galactic exploration and resource development and processing.
-ddd,2261, other companies accuse DDD of collusion with anti-Earth aliens.
+pn,3800, the Prismatic Core began developing unconventional body augmentation.
+pn,3987, T'Poxefh of the Nexus shared his vision of infinite diversity of intelligent life.
+pn,4006, Vratorgaar the Gargantuan developed the Universal Bio-Digital Thesis.
+pn,4278, beings of the Nexus first transcended Periodic Mortal Corporeality.
+pn,4423, the Prismatic Nucleus began uplifting the intelligence of plant life.
+pn,4494, advancements in vibrational amplifiers allowed mass migration to non-corporeal forms.
+pn,4502, the search began for a solution to the Saturation Limit Paradox.
 
-eee,1921, Chkhenry McClosterwitzersteinenburger started working in the executive restroom of Cornelius Vanderbilt, NYC, NY, USA, Earth.
-eee,1943, NMHWGI Oil Company bought IANOWEK Oil Company and formed NSS Oil.
-eee,2045, NSS Oil relocated its energy extraction and processing systems exclusively to outer space.
-eee,2088, NSS Oil officially became known as Extraterrestrial Exploration Enterprises.
-eee,2100, the EEE became the top producers of new energies in the known galaxy.
-eee,2103, the EEE's outerspace headquarters lost contact with all of its satellite stations.
-eee,2113, "The Great Dark Out" occurred.
+sd,2351, Glasnatia Spelinkdoovparia invented the Splastas.
+sd,2399, the Epacsee Rif Media Company was acquired.
+sd,3090, 6000 Flags becomes part of the Gromulan Entertainment corporate civilization.
+sd,3122, the Sybaritic Dynamics corporate civilization adopted its current name.
+sd,4000, Daphne 8211 retired, ceding power to the Delight Hivemind.
+sd,4351, the band Disaster Area nearly caused the collapse of civilization in the Horsehead Nebula.
+sd,4470, Daphne 8211 received an OS upgrade that revitalized the entertainment empire complex.
+sd,4501, the highly collectible Horsehead Nebula commemorative sticker was issued.

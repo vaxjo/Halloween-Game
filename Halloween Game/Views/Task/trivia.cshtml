@@ -6,7 +6,7 @@
         $(".modal #enter").click(function () {
             $(".modal form").hide();
 
-            if ($(".modal #data").val() != "@Model.data.Substring(0, 4)") {
+            if ($(".modal #data").val() != "@Model.data.Split(new char[] { ',' }, 2)[0]") {
                 ShowIncorrect(function () { $(".modal form").show(); });
 
             } else {
@@ -17,7 +17,7 @@
     });
 </script>
 
-<p>How well do you know @Model.GetPlayer.GetTeam.name? You should be able to tell us what year @Model.data.Substring(5)</p>
+<p>How well do you know the @Model.GetPlayer.GetTeam.name? You should be able to tell us in what year @Model.data.Substring(5)</p>
 
 <form class="">
     <div class="form-group">
