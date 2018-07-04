@@ -241,12 +241,13 @@ namespace Halloween_Game.Controllers {
             return null;
         }
 
-        public EmptyResult UpdateTeam(string id, string name, string description, int score) {
+        public EmptyResult UpdateTeam(string id, string name,string goal, string description, int score) {
             Team team = Team.Load(id);
             if (team == null) team = new Team();
 
             team.id = id;
             team.name = name;
+            team.goal = goal;
             team.score = score;
             team.description = description;
             team.Save();
