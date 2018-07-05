@@ -37,12 +37,12 @@
 .css-eee { background-color: #0a0; }
     .css-eee .progress-bar-team { background-color: #8f8; }
 
-.css-pn { background-color: #f00; }
-    .css-pn .progress-bar-team { background-color: #f88; }
-.css-sd { background-color: #00f; }
-    .css-sd .progress-bar-team { background-color: #88f; }
-.css-be { background-color: #0a0; }
-    .css-be .progress-bar-team { background-color: #8f8; }
+.css-pn { background-color: #6161AB; }
+    .css-pn .progress-bar-team { background-color: #383863; }
+.css-sd { background-color: #EC008C; }
+    .css-sd .progress-bar-team { background-color: #890050; }
+.css-be { background-color: #00A79D; }
+    .css-be .progress-bar-team { background-color: #00605a; }
 
 .central { background-color: #333; color: #eee; }
 
