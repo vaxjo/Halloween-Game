@@ -63,15 +63,15 @@ namespace Halloween_Game {
 			// the ids of the items in alphabetical order
 			string bothItems = string.Join(",", combinedItems.Select(o => o.itemId));
 
-			// 27b/6
-			if (combinedItems.Any(o => o.itemId == "27b6")) {
-				PlayerItem t27b6Item = combinedItems.First(o => o.itemId == "27b6");
-				PlayerItem otherItem = combinedItems.Where(o => o.id != t27b6Item.id).First();
-				return "You apply the <b>" + t27b6Item.GetItem.name + "</b> to the <b>" + otherItem.GetItem.name + "</b> but realize that the <b>" + t27b6Item.GetItem.name + "</b> doesn't have the necessary stamp from Information Retreival.";
-			}
-
-			// acid destroys the both things
-			if (combinedItems.Any(o => o.itemId == "acid")) {
+            // 27b/6
+            if (combinedItems.Any(o => o.itemId == "27b6")) {
+                PlayerItem t27b6Item = combinedItems.First(o => o.itemId == "27b6");
+                PlayerItem otherItem = combinedItems.Where(o => o.id != t27b6Item.id).First();
+                return "You apply the <b>" + t27b6Item.GetItem.name + "</b> to the <b>" + otherItem.GetItem.name + "</b> but realize that the <b>" + t27b6Item.GetItem.name + "</b> doesn't have the necessary stamp from Information Retreival.";
+            }
+            
+            // acid destroys the both things
+            if (combinedItems.Any(o => o.itemId == "acid")) {
 				PlayerItem acidItem = combinedItems.First(o => o.itemId == "acid");
 				PlayerItem otherItem = combinedItems.Where(o => o.id != acidItem.id).First(); // could also be acid!
 
@@ -92,11 +92,16 @@ namespace Halloween_Game {
 				// dissolves whatever
 				acidItem.Delete();
 				otherItem.Delete();
-				return "You immersed the <b>" + otherItem.GetItem.name + "</b> in the <b>" + acidItem.GetItem.name + "</b> and it completely dissolves.";
+				return "You immerse the <b>" + otherItem.GetItem.name + "</b> in the <b>" + acidItem.GetItem.name + "</b> and it completely dissolves.";
 			}
 
-			// normal research tree construction
-			if (bothItems == "electronics,sentience") {
+            if (bothItems == "coffee,coffee") {
+				combinedItems[0].Delete();
+                return "You combine the two cups of coffee into one. Brilliant!";
+            }
+
+            // normal research tree construction
+            if (bothItems == "electronics,sentience") {
 				if (player.GetTeam.TechLevel < 1) return InsufficientTech(combinedItems);
 				combinedItems[0].Delete();
 				combinedItems[1].Delete();
@@ -156,8 +161,33 @@ namespace Halloween_Game {
 				return "You hurridly tape the <b>" + combinedItems[0].GetItem.name + "</b> to the front of the <b>" + combinedItems[1].GetItem.name + "</b> because you need a <b>" + newItem.GetItem.name + "</b>.";
 			}
 
-			// generic nothing event
-			return "You tried to combine <b>" + combinedItems[0].GetItem.name + "</b> with <b>" + combinedItems[1].GetItem.name + "</b>, but nothing happened.";
+            // easier combinations [jj 18Jul6]
+            if (bothItems == "photonic,stabilizer") {
+                if (player.GetTeam.TechLevel < 2) return InsufficientTech(combinedItems);
+                combinedItems[0].Delete();
+                combinedItems[1].Delete();
+                PlayerItem newItem = player.AddItem("converter");
+                return "You connect the fleshy output port of the <b>" + combinedItems[1].GetItem.name + "</b> to the <b>" + combinedItems[0].GetItem.name + "</b> and fashion a sort-of <b>" + newItem.GetItem.name + "</b>.";
+            }
+
+            if (bothItems == "chronotons,sentience") {
+                if (player.GetTeam.TechLevel < 2) return InsufficientTech(combinedItems);
+                combinedItems[0].Delete();
+                combinedItems[1].Delete();
+                PlayerItem newItem = player.AddItem("manifold");
+                return "You bathe the <b>" + combinedItems[0].GetItem.name + "</b> in a quantity of <b>" + combinedItems[1].GetItem.name + "</b> and realize that it's basically a <b>" + newItem.GetItem.name + "</b>.";
+            }
+
+            if (bothItems == "electronics,separator") {
+                if (player.GetTeam.TechLevel < 2) return InsufficientTech(combinedItems);
+                combinedItems[0].Delete();
+                combinedItems[1].Delete();
+                PlayerItem newItem = player.AddItem("compensator");
+                return "Using the <b>" + combinedItems[0].GetItem.name + "</b> to slightly adjust the <b>" + combinedItems[1].GetItem.name + "</b> you find yourself with a serviceable <b>" + newItem.GetItem.name + "</b>.";
+            }
+
+            // generic nothing event
+            return "You tried to combine <b>" + combinedItems[0].GetItem.name + "</b> with <b>" + combinedItems[1].GetItem.name + "</b>, but nothing happened.";
 		}
 
 		public static string InsufficientTech(List<PlayerItem> combinedItems) {

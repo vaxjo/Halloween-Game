@@ -19,7 +19,7 @@ namespace Halloween_Game {
 			}
 
 			// if they haven't any slots, then give the team a tech bonus instead
-			if (player.AvailableItemSlots == 0) {
+			if (player.AvailableItemSlots == 0 && form["win"] != "0") {
 				player.GetTeam.score += Convert.ToInt32(form["win"]) * 10;
 				player.GetTeam.Save();
 				Notification.CreatePlayer("Through shrewd negotiation you manage to convince the space casino to convert your winnings into a research grant for your team.", player.id);

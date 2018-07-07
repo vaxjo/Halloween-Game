@@ -19,6 +19,7 @@
                 <small>
                     Agents: @team.GetPlayers.Count, @string.Join(", ", team.GetPlayers.Select(o => o.Name))<br />
                     Warehouse: @string.Join(", ", team.WarehouseGet().Select(o => o.id))<br />
+                    Join Code: @team.JoinCode
                 </small>
             </p>
         </li>

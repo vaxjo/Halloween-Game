@@ -23,6 +23,7 @@
         <label for="taskRate"  class="control-label col-xs-6">Task Rate</label>
         <div class="col-xs-6">
             <input type="number" class="form-control input-sm" id="taskRate" name="taskRate" value="@HGameApp.Settings.TaskRate" />
+            <p class="help-block">Larger values yield more tasks.</p>
         </div>
     </div>
 
@@ -30,6 +31,7 @@
         <label for="techRate" class="control-label col-xs-6">Tech Level Rate</label>
         <div class="col-xs-6">
             <input type="number" class="form-control input-sm" id="techRate" name="techRate" value="@HGameApp.Settings.TechRate" />
+            <p class="help-block">Larger values yield slower progress.</p>
         </div>
     </div>
 
@@ -37,6 +39,7 @@
         <label for="durationMod" class="control-label col-xs-6">Task Expiration (%)</label>
         <div class="col-xs-6">
             <input type="number" class="form-control input-sm" id="durationMod" name="durationMod" value="@HGameApp.Settings.TaskDurationModifier" />
+            <p class="help-block">Tasks expire more slowly with larger values.</p>
         </div>
     </div>
 </form>

@@ -21,10 +21,11 @@
                 @if (player.id == Player.CurrentPlayerId) {
                     <span class="label label-info">you</span>
                 }
-                 <p class="text-muted">
+                <p class="text-muted">
                     <small>
                         Items: @string.Join(", ", player.GetItems.Select(o => o.itemId))<br />
                         Tasks: @string.Join(", ", player.GetTasks.Select(o => o.taskId))<br />
+                        Time Since: @DateTime.Now.Subtract(player.LastActivity).TotalSeconds.ToString("F0")<br />
                     </small>
                 </p>
             </li>

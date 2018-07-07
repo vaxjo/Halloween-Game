@@ -76,6 +76,10 @@
                         <dd id="role">@Model.Role</dd>
                         <dt>Agent Code</dt>
                         <dd id="role">@Model.AgentCode</dd>
+                        <dt>Last Activity</dt>
+                        <dd id="role">@DateTime.Now.Subtract(Model.LastActivity).TotalSeconds.ToString("F1") sec</dd>
+                        <dt>Creation</dt>
+                        <dd id="role">@DateTime.Now.Subtract(Model.Creation).TotalMinutes.ToString("F1") min</dd>
                     </dl>
                 </div>
             </div>

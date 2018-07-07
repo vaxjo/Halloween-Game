@@ -261,3 +261,6 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/Halloween Game/Content/Tasks/wiring/e_2x5
+/Halloween Game/Content/Tasks/wiring/e_2x2
+/Halloween Game/Content/Tasks/wiring/d_3x3

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Halloween_Game {
 	public class Task_wiring : TaskDetail {
-		private static DirectoryInfo _wiringDir = new DirectoryInfo(HttpContext.Current.Server.MapPath("/Content/Tasks/wiring"));
+		private static DirectoryInfo _wiringDir = new DirectoryInfo(HttpContext.Current.Server.MapPath("~/Content/Tasks/wiring"));
 
 		public override string Init(Player player) {
 			int x = 0, y = 0;
@@ -26,7 +26,7 @@ namespace Halloween_Game {
 			int xres = Convert.ToInt32(playerTask.data.Split(',')[1]);
 			int yres = Convert.ToInt32(playerTask.data.Split(',')[2]);
 
-			DirectoryInfo wiringResDir = new DirectoryInfo(HttpContext.Current.Server.MapPath("/Content/Tasks/wiring/" + filename + "_" + xres + "x" + yres));
+			DirectoryInfo wiringResDir = new DirectoryInfo(HttpContext.Current.Server.MapPath("~/Content/Tasks/wiring/" + filename + "_" + xres + "x" + yres));
 			if (!wiringResDir.Exists) wiringResDir.Create();
 
 			using (

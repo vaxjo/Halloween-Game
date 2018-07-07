@@ -148,6 +148,7 @@
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\JSON.cs" />
+    <Compile Include="Models_Tasks\recruit.cs" />
     <Compile Include="Models_Tasks\mentoring.cs" />
     <Compile Include="Models_Tasks\warehouse.cs" />
     <Compile Include="Models_Tasks\buttonunit.cs" />
@@ -352,6 +353,7 @@
     <Content Include="Views\Task\warehouse.cshtml" />
     <Content Include="Views\Task\mentoring.cshtml" />
     <Content Include="Views\Admin\Modal_Team_GetWarehouse.cshtml" />
+    <Content Include="Views\Task\recruit.cshtml" />
     <None Include="Web.WinHost.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

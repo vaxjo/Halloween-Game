@@ -1,0 +1,63 @@
+﻿@model PlayerTask
+@{ Layout = null; }
+
+<script>
+    var playerTaskId = @(Model.id);
+
+    $(document).ready(function () {
+        @*$(".modal #enter").click(function () {
+            $(".modal form").hide();
+
+            $.get("/Player/GetPlayerStatus?agentCode=" + $(".modal #agentCode").val(), function (data) {
+                if (data.id != "@Model.data") {
+                    ShowIncorrect(function () { $(".modal form").show(); });
+
+                } else {
+                    $.post("/Task/Update?playerTaskId=@(Model.id)", { itemId: $(".modal #itemId").val() });
+                    ShowCorrect(function () { HideModal(); });
+                }
+            });
+        });*@
+
+        ShowWait();
+
+        // $.post("/Task/Update?playerTaskId=" + playerTaskId, { data: $(".modal #data").val() });
+        _interval = setInterval(Check, 500);
+    });
+
+    function Check() {
+        $.get("/Task/GetPlayerTaskStatus?id=" + playerTaskId, function (data) {
+            if (data.status == "") return;
+
+            $.post("/Task/Update?playerTaskId=" + playerTaskId);
+            clearInterval(_interval);
+            HideWait();
+
+            ShowCorrect(function () { HideModal(); });
+        });
+
+        // this prevents the interval from stacking up through multiple open/closes of the task modal
+        if (!$(".modal").is(":visible")) clearInterval(_interval);
+    }
+</script>
+
+<p>
+    Bolster the rolls of the <b>@Model.GetPlayer.GetTeam.name</b> by recruiting a new player.
+    Find someone not already playing and convince them to join your team.
+</p>
+
+@*<form class="">
+    <div class="form-group">
+        <input type="number" id="agentCode" class="form-control input-lg" />
+    </div>
+    <div class="form-group">
+        <select id="itemId" name="itemId" class="form-control">
+            @foreach (Item item in Item.GetAll().Where(o => o.size == 2)) {
+                <option value="@item.id">@item.name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <button id="enter" type="button" class="btn btn-primary btn-lg">Mentor</button>
+    </div>
+</form>*@
